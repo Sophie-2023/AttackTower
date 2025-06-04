@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 
 include(FetchContent)
-project(AttackTower VERSION 1.0.0 LANGUAGES CXX)
+project(OutilVisualisation_CorrigeEtape4 VERSION 1.0.0 LANGUAGES CXX)
 
 if(WIN32)
   # SonarLint support for CMake requires the following flag to be set on.
@@ -11,24 +11,29 @@ endif()
 
 set (BUILD_SHARED_LIBS FALSE)
 
-FetchContent_Declare(sfml
-  GIT_REPOSITORY https://github.com/SFML/SFML.git
-  GIT_TAG 3.0.0
-  GIT_SHALLOW ON
-  EXCLUDE_FROM_ALL
-  SYSTEM)
+FetchContent_Declare( sfml
+  URL https://github.com/SFML/SFML/archive/refs/tags/3.0.1.tar.gz
+)
+option(SFML_BUILD_AUDIO "Build audio" OFF)
+option(SFML_BUILD_NETWORK "Build network" OFF)
 FetchContent_MakeAvailable(sfml)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_subdirectory(src_original)
+FetchContent_Declare( pugixml
+  URL https://github.com/zeux/pugixml/archive/refs/tags/v1.15.tar.gz
+)
+FetchContent_MakeAvailable(pugixml)
+
+add_subdirectory(src/core)
+add_subdirectory(src/main)
 
 #
 # Include GoogleTest
 #
 FetchContent_Declare(
-        googletest
-        URL https://github.com/google/googletest/releases/download/v1.16.0/googletest-1.16.0.tar.gz
+  googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.16.0.tar.gz
 )
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings
@@ -39,6 +44,4 @@ FetchContent_MakeAvailable(googletest)
 # Otherwise, Visual Studio test explorer does not see unit tests (See ticket https://developercommunity.visualstudio.com/t/No-tests-discovered-for-googletest-and-C/1148799#T-ND1150621)
 include(GoogleTest)
 enable_testing()
-
-add_subdirectory(src)
-
+add_subdirectory(src/test)
