@@ -1,14 +1,16 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "Troupe.h"
+#include "TroupeFactory.h"
 
 class TroupeManager {
  private:
-  std::vector<Troupe*> troupes; // à changer avec unique_ptr
+  std::vector<std::unique_ptr<Troupe>> troupes;
 
  public:
-  void ajouterTroupe(Troupe* troupe);
-  void supprimerTroupe(Troupe* troupe);
+  void ajouterTroupe(std::unique_ptr<Troupe> troupe);
+  void supprimerTroupe(std::unique_ptr<Troupe> troupe);
   void update(sf::Time elapsedTime);
   void draw(sf::RenderWindow& window);
 };

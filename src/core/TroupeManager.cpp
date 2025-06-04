@@ -1,12 +1,10 @@
 #include "TroupeManager.h"
 
-void TroupeManager::ajouterTroupe(Troupe* troupe) 
-{ 
-	troupes.push_back(troupe); 
+void TroupeManager::ajouterTroupe(std::unique_ptr<Troupe> troupe) { 
+	troupes.push_back(std::move(troupe)); 
 }
 
-void TroupeManager::supprimerTroupe(Troupe* troupe) 
-{
+void TroupeManager::supprimerTroupe(std::unique_ptr<Troupe> troupe) {
 
 }
 

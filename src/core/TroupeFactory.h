@@ -1,8 +1,9 @@
 #pragma once
 #include "Troupe.h"
+#include <memory>
 
 class TroupeFactory {
  public:
-  Troupe* creerTroupe(const std::string& type);
+  std::unique_ptr<Troupe> creerTroupe(const std::string& type);
 
 };

@@ -3,14 +3,10 @@
 
 #include <random>
 
-int random_nMin_to_nMax(int const nMin, int const nMax) {
-  static std::random_device rd;
-  static std::default_random_engine engine(rd());
-  std::uniform_int_distribution distribution(nMin, nMax);
-  return distribution(engine);
-}
 
-Chasseur::Chasseur() { 
+Chasseur::Chasseur() 
+	: Troupe(50, 1.f) 
+{ 
 	rectangle.setFillColor(sf::Color::Green);
 	rectangle.setSize({50.f, 50.f});
     rectangle.setPosition({ static_cast<float>(random_nMin_to_nMax(100, 900)), static_cast<float>(random_nMin_to_nMax(100, 600)) });

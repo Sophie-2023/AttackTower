@@ -4,8 +4,12 @@ const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game() {
-  Troupe *chasseur = troupeFactory.creerTroupe("chasseur");
-  troupeManager.ajouterTroupe(chasseur);
+  auto chasseur1 = troupeFactory.creerTroupe("chasseur");
+  auto chasseur2 = troupeFactory.creerTroupe("chasseur");
+  auto loup = troupeFactory.creerTroupe("loup");
+  troupeManager.ajouterTroupe(std::move(chasseur1));
+  troupeManager.ajouterTroupe(std::move(chasseur2));
+  troupeManager.ajouterTroupe(std::move(loup));
 }
 
 void Game::run() {
