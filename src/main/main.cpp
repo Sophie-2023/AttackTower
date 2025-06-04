@@ -1,3 +1,6 @@
-#include "myMain.h"
+#include "Game.h"
 
-int main() { return myMain(); }
+int main() {
+  Game game;
+  game.run();
+}
