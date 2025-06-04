@@ -1,15 +1,21 @@
 #include <SFML/Graphics.hpp>
 
 #include "Loup.h"
+#include <iostream>
 
 Loup::Loup() 
-    : Troupe(100, 2.0f) {
-  rectangle.setFillColor(sf::Color::White);
-  rectangle.setSize({50.f, 50.f});
-  rectangle.setPosition({static_cast<float>(random_nMin_to_nMax(100, 900)),
-                         static_cast<float>(random_nMin_to_nMax(100, 600))});
+    : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) {
+
+  sprite.setScale({0.1f, 0.1f});
+  sprite.setPosition({static_cast<float>(random_nMin_to_nMax(100, 900)),
+                      static_cast<float>(random_nMin_to_nMax(100, 600))});
 }
 
-void Loup::draw(sf::RenderWindow& window) const { window.draw(rectangle); }
+void Loup::draw(sf::RenderWindow& window) const {
+  window.draw(sprite);
+}
 
-void Loup::update(sf::Time elapsedTime) {}
+void Loup::update(sf::Time elapsedTime) { 
+    sf::Vector2f movement(vitesse, 0.f);
+    sprite.move(movement * elapsedTime.asSeconds());
+}

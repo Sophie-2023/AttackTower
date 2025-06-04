@@ -1,13 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <random>
+#include "State.h"
 
 class Troupe {
 
 protected:
 	int pv;
 	float vitesse;
-	//State* etat;
+    std::unique_ptr<State> etat;
+
 
 public:
     Troupe(int pv_, float vitesse_);
@@ -17,8 +19,6 @@ public:
     void recevoirDegats(int amount);
     //void changerEtat(State* nouvelEtat);
     int random_nMin_to_nMax(int const nMin, int const nMax); // à enlever (c'est ici juste pour tester)
-
-    sf::RectangleShape rectangle;
 
 };
 

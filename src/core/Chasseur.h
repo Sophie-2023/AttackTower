@@ -8,5 +8,7 @@ class Chasseur : public Troupe {
   void draw(sf::RenderWindow& window) const override;
   void update(sf::Time elapsedTime) override;
 
-  
+ private:
+  sf::Texture texture;
+  sf::Sprite sprite;
 };

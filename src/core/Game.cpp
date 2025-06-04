@@ -4,6 +4,7 @@ const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game() {
+  // Juste pour tester (à enlever si jamais)
   auto chasseur1 = troupeFactory.creerTroupe("chasseur");
   auto chasseur2 = troupeFactory.creerTroupe("chasseur");
   auto loup = troupeFactory.creerTroupe("loup");

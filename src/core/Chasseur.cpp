@@ -5,16 +5,18 @@
 
 
 Chasseur::Chasseur() 
-	: Troupe(50, 1.f) 
+	: Troupe(50, 50.f),
+      texture("res/chasseur.png"),
+      sprite(texture)  // pv = 50; vitesse = 50
 { 
-	rectangle.setFillColor(sf::Color::Green);
-	rectangle.setSize({50.f, 50.f});
-    rectangle.setPosition({ static_cast<float>(random_nMin_to_nMax(100, 900)), static_cast<float>(random_nMin_to_nMax(100, 600)) });
+	sprite.setScale({0.3f, 0.3f});
+    sprite.setPosition({ static_cast<float>(random_nMin_to_nMax(100, 900)), static_cast<float>(random_nMin_to_nMax(100, 600)) });
 }
 
-void Chasseur::draw(sf::RenderWindow& window) const { window.draw(rectangle); }
+void Chasseur::draw(sf::RenderWindow& window) const { window.draw(sprite); }
 
 void Chasseur::update(sf::Time elapsedTime) 
 { 
-
+	sf::Vector2f movement(-vitesse, 0.f);
+	sprite.move(movement * elapsedTime.asSeconds());
 }
