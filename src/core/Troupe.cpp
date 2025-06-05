@@ -14,3 +14,5 @@ int Troupe::random_nMin_to_nMax(int const nMin, int const nMax) {
   std::uniform_int_distribution distribution(nMin, nMax);
   return distribution(engine);
 }
+
+sf::Vector2f Troupe::getPosition() const { return position; }
