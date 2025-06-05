@@ -9,12 +9,12 @@ class Defense {
   float timer;
   float cadence;
 
- protected:
+public:
   sf::Vector2f position;
  
 public:
   Defense(float r, float c, sf::Vector2f pos);
-  void update(float dt, TroupeManager TM);
+  void update(sf::Time elapsedTime, TroupeManager& TM);
   virtual void draw(sf::RenderWindow& window) const = 0;
   virtual void attaquer(Troupe* cible) = 0;
 };

@@ -14,8 +14,8 @@ class Champ {
 
  public:
   Champ(int t, int v, float x, float y);
-  void update(float dt);
+  void update(sf::Time elapsedTime, TroupeManager& TM);
   void draw(sf::RenderWindow& window) const;
-  void addDefense(std::unique_ptr<Defense> defense);
+  void addDefense(const std::string& nom, float posx, float posy);
   // void takeDamage(int d);
 };

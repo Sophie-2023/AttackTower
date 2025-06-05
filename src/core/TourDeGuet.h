@@ -4,7 +4,7 @@
 class TourDeGuet : public Defense {
 
   private:
-  static const int degats = 10;
+  static const int degats = -10;
    sf::Texture texture;
    sf::Sprite sprite;
  public:

@@ -9,7 +9,7 @@ class Carte {
     std::vector<std::unique_ptr<Champ>> champs;
 public:
     Carte();
-    void update(float dt);
+    void update(sf::Time elapsedTime, TroupeManager& TM);
     void draw(sf::RenderWindow& window) const;
 };
 #endif  // CARTE_H

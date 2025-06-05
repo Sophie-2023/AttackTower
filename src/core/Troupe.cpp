@@ -1,10 +1,13 @@
 #include "Troupe.h"
+#include <iostream>
+
 
 Troupe::Troupe(int pv_, float vitesse_)
     : pv(pv_), vitesse(vitesse_), position({0.f, 0.f}) {}
 
 void Troupe::recevoirDegats(int amount) {
   pv += amount;
+  std::cout << "PV: " << pv << std::endl;
   if (pv <= 0) pv = 0;
 }
 

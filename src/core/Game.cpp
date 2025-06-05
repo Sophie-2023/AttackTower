@@ -47,13 +47,16 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time elapsedTime) {
+  carte.update(elapsedTime, troupeManager);
   troupeManager.update(elapsedTime);
+
 }
 
 void Game::render() {
   mWindow.clear();
-  troupeManager.draw(mWindow);
   carte.draw(mWindow);
+  troupeManager.draw(mWindow);
+
   mWindow.display();
 }
 

@@ -1,4 +1,5 @@
 #include "Champ.h"
+#include "TourDeGuet.h"
 
 
 Champ::Champ(int t, int v, float x, float y)
@@ -16,10 +17,17 @@ void Champ::draw(sf::RenderWindow& window) const {
   }
 
 
-void Champ::update(float dt) {};
+void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
+    for (auto& def : defenses) {
+      def->update(elapsedTime, TM);
+    }
+  }
 
-void Champ::addDefense(std::unique_ptr<Defense> defense) {
-  defenses.push_back(std::move(defense));
+void Champ::addDefense(const std::string& nom, float posx,float posy) {
+  if (std::string_view(nom) == "tour") {
+    defenses.push_back(
+        std::make_unique<TourDeGuet>(posx + sprite.getPosition().x, posy + sprite.getPosition().y));
+  }
 }
 
 //void takeDamage(int d);
