@@ -14,6 +14,7 @@ Game::Game() {
   troupeManager.ajouterTroupe(std::move(chasseur1));
   troupeManager.ajouterTroupe(std::move(chasseur2));
   troupeManager.ajouterTroupe(std::move(loup));
+  
 }
 
 void Game::run() {
