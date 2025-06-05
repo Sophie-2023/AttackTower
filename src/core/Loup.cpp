@@ -18,4 +18,7 @@ void Loup::draw(sf::RenderWindow& window) const {
 void Loup::update(sf::Time elapsedTime) { 
     sf::Vector2f movement(vitesse, 0.f);
     sprite.move(movement * elapsedTime.asSeconds());
+    if (etat) {
+      etat->agir(*this, elapsedTime);
+    }
 }

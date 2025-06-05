@@ -16,3 +16,7 @@ int Troupe::random_nMin_to_nMax(int const nMin, int const nMax) {
 }
 
 sf::Vector2f Troupe::getPosition() const { return position; }
+
+void Troupe::changerEtat(std::unique_ptr<State> nouvelEtat) {
+  etat = std::move(nouvelEtat);
+}
