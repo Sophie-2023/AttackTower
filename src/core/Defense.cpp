@@ -20,11 +20,12 @@
 
       }
    }
+   timer += elapsedTime.asSeconds();
    if (!found) {
      cible = nullptr;
      return;
    }
-   timer += elapsedTime.asSeconds();
+   
    if (timer > cadence) {
      timer = 0;
      attaquer(cible);
