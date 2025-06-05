@@ -13,4 +13,5 @@ class TroupeManager {
   void supprimerTroupe(std::unique_ptr<Troupe> troupe);
   void update(sf::Time elapsedTime);
   void draw(sf::RenderWindow& window);
+  std::vector<std::unique_ptr<Troupe>>& getTroupes() { return troupes; }
 };
