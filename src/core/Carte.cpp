@@ -2,18 +2,18 @@
 
 Carte::Carte() {
   // Initialize the map with some default values or load from a file
-  champs.emplace_back(100,100, 50, 50);
-  champs.emplace_back(200,200, 200, 300);
-};
+  champs.push_back(std::make_unique<Champ>(10, 100, 50, 50));
+  champs.push_back(std::make_unique<Champ>(35, 200, 300, 200));
+}
 
 void Carte::update(float dt) {
   for (auto& champ : champs) {
-    champ.update(dt);
+    champ->update(dt);
   }
-};
+}
 
 void Carte::draw(sf::RenderWindow& window) const {
-  for (const auto& champ : champs) {
-    champ.draw(window);
+  for (auto& champ : champs) {
+    champ->draw(window);
   }
-};
+}

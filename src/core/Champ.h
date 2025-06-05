@@ -12,6 +12,6 @@ class Champ {
  public:
   Champ(int t, int v, float x, float y);
   void update(float dt);
-  void draw(sf::RenderWindow& window);
+  void draw(sf::RenderWindow& window) const;
   // void takeDamage(int d);
 };
