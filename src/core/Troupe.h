@@ -9,6 +9,7 @@ protected:
 	int pv;
 	float vitesse;
     std::unique_ptr<State> etat;
+    sf::Vector2f position;
 
 
 public:

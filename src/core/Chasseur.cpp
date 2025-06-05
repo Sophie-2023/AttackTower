@@ -9,8 +9,10 @@ Chasseur::Chasseur()
       texture("res/chasseur.png"),
       sprite(texture)  // pv = 50; vitesse = 50
 { 
+	position = {static_cast<float>(random_nMin_to_nMax(100, 900)),
+              static_cast<float>(random_nMin_to_nMax(100, 600))};
 	sprite.setScale({0.3f, 0.3f});
-    sprite.setPosition({ static_cast<float>(random_nMin_to_nMax(100, 900)), static_cast<float>(random_nMin_to_nMax(100, 600)) });
+    sprite.setPosition(position);
 }
 
 void Chasseur::draw(sf::RenderWindow& window) const { window.draw(sprite); }

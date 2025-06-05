@@ -1,7 +1,7 @@
 #include "Troupe.h"
 
 Troupe::Troupe(int pv_, float vitesse_)
-    : pv(pv_), vitesse(vitesse_) {}
+    : pv(pv_), vitesse(vitesse_), position({0.f, 0.f}) {}
 
 void Troupe::recevoirDegats(int amount) {
   pv += amount;
