@@ -1,7 +1,10 @@
 #include "Game.h"
 
+
 const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
+
+
 
 Game::Game() {
   // Juste pour tester (à enlever si jamais)
@@ -49,6 +52,7 @@ void Game::update(sf::Time elapsedTime) {
 void Game::render() {
   mWindow.clear();
   troupeManager.draw(mWindow);
+  carte.draw(mWindow);
   mWindow.display();
 }
 

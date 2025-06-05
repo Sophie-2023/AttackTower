@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "TroupeManager.h"
 #include "TroupeFactory.h"
+#include "Carte.h"
 
 class Game {
  public:
@@ -29,6 +30,7 @@ class Game {
   
   TroupeManager troupeManager;
   TroupeFactory troupeFactory;
+  Carte carte;
 
   bool mIsMovingUp{false};
   bool mIsMovingDown{false};
