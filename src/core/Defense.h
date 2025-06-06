@@ -17,4 +17,5 @@ public:
   void update(sf::Time elapsedTime, TroupeManager& TM);
   virtual void draw(sf::RenderWindow& window) const = 0;
   virtual void attaquer(Troupe* cible) = 0;
+  virtual void updateAttaque(sf::Time elapsedTime) = 0;
 };

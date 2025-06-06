@@ -8,6 +8,7 @@ Loup::Loup()
   position = {static_cast<float>(random_nMin_to_nMax(100, 900)),
               static_cast<float>(random_nMin_to_nMax(100, 600))};
   sprite.setScale({0.1f, 0.1f});
+  sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setPosition(position);
 }
 
