@@ -3,7 +3,7 @@
 
 
 Champ::Champ(int t, int v, float x, float y)
-    : taille(t), vie(v), texture("res/champBle.jpg"), sprite(texture) {
+    : Lieu(sf::Vector2f(x,y)),   taille(t), vie(v), texture("res/champBle.jpg"), sprite(texture) {
   sprite.setOrigin( sprite.getLocalBounds().getCenter());
   sprite.setScale({0.01f*taille, 0.01f*taille});
   sprite.setPosition(sf::Vector2f(x,y));
@@ -26,7 +26,7 @@ void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
 void Champ::addDefense(const std::string& nom, float posx,float posy) {
   if (std::string_view(nom) == "tour") {
     defenses.push_back(
-        std::make_unique<TourDeGuet>(posx + sprite.getPosition().x, posy + sprite.getPosition().y));
+        std::make_unique<TourDeGuet>(posx + position.x, posy + position.y));
   }
 }
 
