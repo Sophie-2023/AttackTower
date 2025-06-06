@@ -42,7 +42,7 @@ void TourDeGuet::draw(sf::RenderWindow& window) const {
     window.draw(bullet);  }
   };
 
-void TourDeGuet::updateAttaque(sf::Time elapsedTime) {
+void TourDeGuet::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
   if (attaqueEnCours) {
      sf::Vector2f direction =
         (cible->getPosition() - bullet.getPosition()).normalized() * bulletSpeed;

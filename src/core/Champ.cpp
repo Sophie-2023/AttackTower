@@ -1,5 +1,6 @@
 #include "Champ.h"
 #include "TourDeGuet.h"
+#include "CanonABle.h"
 
 
 Champ::Champ(int t, int v, float x, float y)
@@ -28,6 +29,11 @@ void Champ::addDefense(const std::string& nom, float posx,float posy) {
     defenses.push_back(
         std::make_unique<TourDeGuet>(posx + position.x, posy + position.y));
   }
+  else if (std::string_view(nom) == "canon") {
+    defenses.push_back(
+        std::make_unique<CanonABle>(posx + position.x, posy + position.y));
+  }
+
 }
 
 //void takeDamage(int d);

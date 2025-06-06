@@ -5,7 +5,10 @@ Carte::Carte() {
   auto champ = std::make_unique<Champ>(10, 100, 200, 200);
   champ->addDefense("tour", 50, 50);
   lieux.push_back(std::move(champ));
-  //lieux.push_back(std::make_unique<Champ>(35, 200, 500, 350));
+
+  auto champ2 = std::make_unique<Champ>(10, 100, 500, 500);
+  champ2->addDefense("canon", -20, 50);
+  lieux.push_back(std::move(champ2));
 
 }
 

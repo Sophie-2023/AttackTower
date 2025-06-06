@@ -20,5 +20,5 @@ class TourDeGuet : public Defense {
   TourDeGuet(float x, float y);
   void attaquer(Troupe* cible) override;
   void draw(sf::RenderWindow& window) const override;
-  void updateAttaque(sf::Time elapsedTime) override;
+  void updateAttaque(sf::Time elapsedTime, TroupeManager& TM) override;
 };

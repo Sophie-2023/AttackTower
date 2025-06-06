@@ -9,7 +9,7 @@
 
  void Defense::update(sf::Time elapsedTime, TroupeManager& TM) {
    timer += elapsedTime.asSeconds();
-   updateAttaque(elapsedTime);
+   updateAttaque(elapsedTime,TM);
    float distMin = rayon;
    bool found = false;
    for (auto& troupe : TM.getTroupes()) {
