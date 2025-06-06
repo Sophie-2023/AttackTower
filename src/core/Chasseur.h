@@ -7,6 +7,8 @@ class Chasseur : public Troupe {
   Chasseur();
   void draw(sf::RenderWindow& window) const override;
   void update(sf::Time elapsedTime) override;
+  sf::FloatRect getBounds() const override;
+  void setSelected(bool newBool) override;
 
  private:
   sf::Texture texture;

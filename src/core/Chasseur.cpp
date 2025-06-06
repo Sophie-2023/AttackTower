@@ -18,8 +18,24 @@ Chasseur::Chasseur()
 
 void Chasseur::draw(sf::RenderWindow& window) const { window.draw(sprite); }
 
+sf::FloatRect Chasseur::getBounds() const {
+	return sprite.getGlobalBounds();
+}
+
+void Chasseur::setSelected(bool newBool) { 
+  Troupe::setSelected(newBool);
+  if (newBool) {
+    sprite.setColor(sf::Color::Green);
+  } else {
+    sprite.setColor(sf::Color::White);
+  }
+}
+
 void Chasseur::update(sf::Time elapsedTime) 
 { 
 	sf::Vector2f movement(-vitesse, 0.f);
-	sprite.move(movement * elapsedTime.asSeconds());
+	//sprite.move(movement * elapsedTime.asSeconds());
+    if (etat) {
+        etat->agir(*this, elapsedTime);
+    }
 }

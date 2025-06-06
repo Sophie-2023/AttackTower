@@ -16,9 +16,20 @@ void Loup::draw(sf::RenderWindow& window) const {
   window.draw(sprite);
 }
 
+sf::FloatRect Loup::getBounds() const { return sprite.getGlobalBounds(); }
+
+void Loup::setSelected(bool newBool) {
+  Troupe::setSelected(newBool);
+  if (newBool) {
+    sprite.setColor(sf::Color::Green);
+  } else {
+    sprite.setColor(sf::Color::White);
+  }
+}
+
 void Loup::update(sf::Time elapsedTime) { 
     sf::Vector2f movement(vitesse, 0.f);
-    sprite.move(movement * elapsedTime.asSeconds());
+    //sprite.move(movement * elapsedTime.asSeconds());
     if (etat) {
       etat->agir(*this, elapsedTime);
     }

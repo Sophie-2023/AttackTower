@@ -3,7 +3,7 @@
 
 
 Troupe::Troupe(int pv_, float vitesse_)
-    : pv(pv_), vitesse(vitesse_), position({0.f, 0.f}) {}
+    : pv(pv_), vitesse(vitesse_), position({0.f, 0.f}), selected(false) {}
 
 void Troupe::recevoirDegats(int amount) {
   pv += amount;
@@ -19,6 +19,8 @@ int Troupe::random_nMin_to_nMax(int const nMin, int const nMax) {
 }
 
 sf::Vector2f Troupe::getPosition() const { return position; }
+
+void Troupe::setSelected(bool newBool) { selected = newBool; }
 
 void Troupe::changerEtat(std::unique_ptr<State> nouvelEtat) {
   etat = std::move(nouvelEtat);
