@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Champ.h"
+#include "Base.h"
 #include <SFML/Graphics.hpp>
 #ifndef CARTE_H
 #define CARTE_H

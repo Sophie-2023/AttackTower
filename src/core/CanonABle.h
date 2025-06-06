@@ -6,20 +6,26 @@
 class CanonABle : public Defense {
  private:
   static const int degats = -8;
-  static const int rayonDegat = 12;
+  static const int rayonDegat = 40;
   sf::Texture texture;
   sf::Sprite sprite;
 
   bool attaqueEnCours = false;
+  bool explosionEnCours = false;
 
   float progress = 0.0f;
   float speed = 0.8; 
   float arcHeight = 50;
+  float timeExplosion = 0.0f;
 
   sf::Texture bulletTexture;
   sf::Sprite bullet;
   sf::Vector2f bulletDestination;
 
+  sf::Texture effetExplosionTexture;
+  sf::CircleShape effetExplosion;
+
+  
   float bulletSpeed = 200;  // Vitesse de la balle
 
  public:

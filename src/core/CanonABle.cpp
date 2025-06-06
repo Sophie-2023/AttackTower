@@ -7,10 +7,15 @@ CanonABle::CanonABle(float x, float y)
       texture("res/canon.png"),
       sprite(texture),
       bulletTexture("res/bouletBle.png"),
-      bullet(bulletTexture) {
+      bullet(bulletTexture),
+      effetExplosionTexture("res/explosion.png")
+{
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.1f, 0.1f});
   sprite.setPosition(position);
+  effetExplosion.setTexture(&effetExplosionTexture);
+  effetExplosion.setRadius(rayonDegat);
+  effetExplosion.setOrigin(effetExplosion.getLocalBounds().getCenter());
 }
 
 
@@ -30,9 +35,18 @@ void CanonABle::draw(sf::RenderWindow& window) const {
   if (attaqueEnCours) {
     window.draw(bullet);
   }
+  if (explosionEnCours) {
+    window.draw(effetExplosion);
+  }
 };
 
 void CanonABle::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
+  if (explosionEnCours) {
+    timeExplosion += elapsedTime.asSeconds();
+    if (timeExplosion > 0.5f) {
+      explosionEnCours = false;
+    }
+  }
   if (attaqueEnCours) {
     /* sf::Vector2f direction =
         (bulletDestination - bullet.getPosition()).normalized() *
@@ -42,6 +56,7 @@ void CanonABle::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
 
 
     progress += speed * elapsedTime.asSeconds();
+
     if (progress > 1.0f) progress = 1.0f;
 
     sf::Vector2f pos = position + (bulletDestination - position) * progress;
@@ -51,6 +66,7 @@ void CanonABle::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
     bullet.setPosition(pos);
     
     if ((bullet.getPosition() - bulletDestination).length() < 3) {
+      effetExplosion.setPosition(bulletDestination);
 
       for (auto& cible : TM.getTroupes()) {
         if ((cible->getPosition()-bulletDestination).length() < rayonDegat) {
@@ -58,7 +74,9 @@ void CanonABle::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
         }
       }
       attaqueEnCours = false;
+      explosionEnCours  = true;
       progress = 0.f;  
+      timeExplosion = 0.f;
     }
   }
 }
