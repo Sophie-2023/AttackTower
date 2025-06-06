@@ -1,5 +1,6 @@
 #include "Carte.h"
 #include "TourDeGuet.h"
+
 Carte::Carte() {
   // Initialize the map with some default values or load from a file
   auto champ = std::make_unique<Champ>(10, 100, 200, 200);

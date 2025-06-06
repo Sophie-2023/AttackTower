@@ -22,6 +22,8 @@ sf::FloatRect Chasseur::getBounds() const {
 	return sprite.getGlobalBounds();
 }
 
+sf::Sprite& Chasseur::getSprite() { return sprite; }
+
 void Chasseur::setSelected(bool newBool) { 
   Troupe::setSelected(newBool);
   if (newBool) {

@@ -17,6 +17,7 @@ void Loup::draw(sf::RenderWindow& window) const {
 }
 
 sf::FloatRect Loup::getBounds() const { return sprite.getGlobalBounds(); }
+sf::Sprite& Loup::getSprite() { return sprite; }
 
 void Loup::setSelected(bool newBool) {
   Troupe::setSelected(newBool);

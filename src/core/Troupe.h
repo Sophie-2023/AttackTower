@@ -22,8 +22,11 @@ public:
     void changerEtat(std::unique_ptr<State> nouvelEtat);
 
     sf::Vector2f getPosition() const;
+    float getVitesse() const;
     virtual sf::FloatRect getBounds() const = 0;
+    virtual sf::Sprite& getSprite() = 0;
     virtual void setSelected(bool newBool);
+    void setPosition(sf::Vector2f newPos) { position = newPos; }
 
     int random_nMin_to_nMax(int const nMin, int const nMax); // à enlever (c'est ici juste pour tester)
 

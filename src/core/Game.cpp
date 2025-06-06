@@ -1,5 +1,7 @@
 #include "Game.h"
 #include <iostream>
+#include <EtatEnRoute.h>
+#include <memory>
 
 
 const float Game::PlayerSpeed = 100.f;
@@ -48,6 +50,19 @@ void Game::processEvents() {
           troupeSelectionnee = troupePtr.get();
           troupeSelectionnee->setSelected(true);
           return;
+        }
+      }
+
+      if (troupeSelectionnee) {
+        for (auto& lieu : carte.getLieux()) {
+          if (lieu->getBounds().contains(souris)) {
+            std::unique_ptr<EtatEnRoute> etatEnRoute = std::make_unique<EtatEnRoute>();
+            etatEnRoute->setDestination(lieu.get());
+            troupeSelectionnee->changerEtat(std::move(etatEnRoute));
+            troupeSelectionnee->setSelected(false);
+            troupeSelectionnee = nullptr;
+            return;
+          }
         }
       }
     }

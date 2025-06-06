@@ -19,6 +19,7 @@ int Troupe::random_nMin_to_nMax(int const nMin, int const nMax) {
 }
 
 sf::Vector2f Troupe::getPosition() const { return position; }
+float Troupe::getVitesse() const { return vitesse; }
 
 void Troupe::setSelected(bool newBool) { selected = newBool; }
 
