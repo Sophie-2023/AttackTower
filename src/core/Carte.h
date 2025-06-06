@@ -6,7 +6,7 @@
 #define CARTE_H
 
 class Carte {
-    std::vector<std::unique_ptr<Champ>> champs;
+    std::vector<std::unique_ptr<Lieu>> lieux;
 public:
     Carte();
     void update(sf::Time elapsedTime, TroupeManager& TM);

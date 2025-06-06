@@ -10,17 +10,26 @@ TourDeGuet::TourDeGuet(float x, float y)
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.2f, 0.2f});
   sprite.setPosition(position);
+
 }
+
+  #include <SFML/System/Angle.hpp> // Include necessary header for sf::Angle
 
   void TourDeGuet::attaquer(Troupe* c) {
-  cible = c;
-  attaqueEnCours = true;
-  std::cout << "attaque de la tour de guet" << std::endl;
-  bullet.setPosition(position);
-  bullet.setScale(sf::Vector2f(0.01f,0.01f));  // Ajuste la taille de la balle
-  bullet.setOrigin(bullet.getLocalBounds().getCenter());
-
-}
+    cible = c;
+    attaqueEnCours = true;
+    std::cout << "attaque de la tour de guet" << std::endl;
+    bullet.setPosition(position);
+    bullet.setScale(sf::Vector2f(0.01f, 0.01f));  // Ajuste la taille de la balle
+    bullet.setOrigin(bullet.getLocalBounds().getCenter());
+    
+    // Convert float to sf::Angle using sf::radians
+    sf::Angle rotationAngle = sf::radians(
+        std::atan2(cible->getPosition().y - position.y,
+                   cible->getPosition().x - position.x));
+    
+    bullet.setRotation(rotationAngle);  // Définit la rotation de la balle vers la cible
+  }
 
 void TourDeGuet::draw(sf::RenderWindow& window) const {
     // Dessine la tour de guet

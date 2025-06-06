@@ -1,9 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Defense.h"
+#include "Lieu.h"
 
 
-class Champ {
+class Champ : public Lieu {
   int taille;
   int vie;
 
@@ -14,8 +15,8 @@ class Champ {
 
  public:
   Champ(int t, int v, float x, float y);
-  void update(sf::Time elapsedTime, TroupeManager& TM);
-  void draw(sf::RenderWindow& window) const;
+  void update(sf::Time elapsedTime, TroupeManager& TM) override;
+  void draw(sf::RenderWindow& window) const override;
   void addDefense(const std::string& nom, float posx, float posy);
   // void takeDamage(int d);
 };
