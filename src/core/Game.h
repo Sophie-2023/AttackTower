@@ -32,6 +32,8 @@ class Game {
   TroupeFactory troupeFactory;
   Carte carte;
 
+  Troupe *troupeSelectionnee = nullptr;
+
   bool mIsMovingUp{false};
   bool mIsMovingDown{false};
   bool mIsMovingRight{false};
