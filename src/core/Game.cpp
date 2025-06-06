@@ -40,11 +40,10 @@ void Game::processEvents() {
     if (event->is<sf::Event::MouseButtonPressed>()) {
       
       sf::Vector2f souris = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-      std::cout << "Souris : (" << souris.x << ", " << souris.y << ")" << std::endl;
+      //std::cout << "Souris : (" << souris.x << ", " << souris.y << ")" << std::endl;
 
       for (auto const& troupePtr : troupeManager.getTroupes()) {
         if (troupePtr->getBounds().contains(souris)) {
-          std::cout << "selection" << std::endl;
           if (troupeSelectionnee) troupeSelectionnee->setSelected(false);
           troupeSelectionnee = troupePtr.get();
           troupeSelectionnee->setSelected(true);

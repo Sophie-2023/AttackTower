@@ -19,4 +19,5 @@ class Champ : public Lieu {
   void draw(sf::RenderWindow& window) const override;
   void addDefense(const std::string& nom, float posx, float posy);
   // void takeDamage(int d);
+  sf::FloatRect getBounds() const override;
 };

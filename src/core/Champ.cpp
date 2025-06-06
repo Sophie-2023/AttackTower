@@ -17,6 +17,8 @@ void Champ::draw(sf::RenderWindow& window) const {
   }
   }
 
+sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
+
 
 void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
     for (auto& def : defenses) {

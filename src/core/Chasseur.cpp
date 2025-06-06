@@ -11,8 +11,8 @@ Chasseur::Chasseur()
 { 
 	position = {static_cast<float>(random_nMin_to_nMax(100, 900)),
               static_cast<float>(random_nMin_to_nMax(100, 600))};
-  sprite.setOrigin(sprite.getLocalBounds().getCenter());
-	sprite.setScale({0.3f, 0.3f});
+    sprite.setOrigin(sprite.getLocalBounds().getCenter());
+	sprite.setScale({0.175f, 0.175f});
     sprite.setPosition(position);
 }
 
