@@ -4,7 +4,8 @@
 #include "pugixml.hpp"
 
 class Lieu {
-
+ private:
+  sf::Texture textureChemin;
 
    protected:
   sf::Vector2f position;
@@ -16,6 +17,7 @@ class Lieu {
 
   virtual sf::FloatRect getBounds() const = 0;
   sf::Vector2f getPosition() const;
+  std::unique_ptr<sf::RectangleShape> createChemin(Lieu* destination) const;
 
 
 };

@@ -9,8 +9,11 @@
 #define CARTE_H
 
 class Carte {
-    std::vector<std::unique_ptr<Lieu>> lieux;
-public:
+  std::vector<std::unique_ptr<Lieu>> lieux;
+  Base* base=nullptr;
+  std::vector<std::unique_ptr<sf::RectangleShape>> chemins;
+
+ public:
     Carte()=default;
     void makeCarte(const pugi::xml_node& node);
     void update(sf::Time elapsedTime, TroupeManager& TM);

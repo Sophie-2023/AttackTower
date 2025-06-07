@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <map>
 	<base x="500" y="350" />
-	<champ x="200" y="200" taille="10" vie="100">
+	<champ x="200" y="600" taille="10" vie="100">
 		<defense type="tour" x="50" y="50"/>
 	</champ>
 	<champ x="50" y="50" taille="10" vie="100">
