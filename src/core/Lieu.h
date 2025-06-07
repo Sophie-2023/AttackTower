@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/graphics.hpp>
 #include "TroupeManager.h"
+#include "pugixml.hpp"
 
 class Lieu {
 
@@ -9,7 +10,7 @@ class Lieu {
   sf::Vector2f position;
 
   public:
-  explicit Lieu(sf::Vector2f pos);
+  explicit Lieu(const pugi::xml_node& node);
   virtual void draw(sf::RenderWindow& window) const = 0;
   virtual void update(sf::Time elapsedTime, TroupeManager& TM) = 0;
 

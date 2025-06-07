@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "TroupeManager.h"
 #include "Troupe.h"
+#include "pugixml.hpp"
 
 class Defense {
   float rayon;

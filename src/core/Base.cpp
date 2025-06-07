@@ -1,10 +1,10 @@
 #include "Base.h"
 
-Base::Base(float x, float y)
-    : Lieu(sf::Vector2f(x, y)), texture("res/champBle.jpg"), sprite(texture) {
+Base::Base(const pugi::xml_node& node)
+    : Lieu(node), texture("res/champBle.jpg"), sprite(texture) {
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.2f, 0.2f});
-  sprite.setPosition(sf::Vector2f(x, y));
+  sprite.setPosition(position);
 }
 
 void Base::update(sf::Time elapsedTime, TroupeManager& TM) {

@@ -25,6 +25,15 @@ FetchContent_Declare( pugixml
 )
 FetchContent_MakeAvailable(pugixml)
 
+cmake_policy(SET CMP0135 NEW) # This cmake_policy avoids warning by cmake when we fetch contents based on URL
+FetchContent_Declare(
+    pugixml
+    URL https://github.com/zeux/pugixml/releases/download/v1.15/pugixml-1.15.tar.gz
+)
+
+FetchContent_MakeAvailable(pugixml)
+
+
 add_subdirectory(src/core)
 add_subdirectory(src/main)
 

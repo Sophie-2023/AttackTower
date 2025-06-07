@@ -1,21 +1,18 @@
 #include "Carte.h"
 #include "TourDeGuet.h"
-
-
-Carte::Carte() {
-  // Initialize the map with some default values or load from a file
-  lieux.push_back(std::make_unique<Base>(500, 350));
-
-  auto champ = std::make_unique<Champ>(10, 100, 200, 200);
-  champ->addDefense("tour", 50, 50);
-  lieux.push_back(std::move(champ));
-
-  auto champ2 = std::make_unique<Champ>(10, 100, 500, 500);
-  champ2->addDefense("canon", -20, 50);
-  lieux.push_back(std::move(champ2));
+#include <iostream>
 
 
 
+
+void Carte::makeCarte(const pugi::xml_node& node) {
+  for (pugi::xml_node base : node.children("base")) {
+    lieux.push_back(std::make_unique<Base>(base));
+  }
+  for (pugi::xml_node  champ : node.children("champ")) {
+    auto champ1 = std::make_unique<Champ>(champ);
+    lieux.push_back(std::move(champ1));
+    }
 }
 
 void Carte::update(sf::Time elapsedTime, TroupeManager& TM) {

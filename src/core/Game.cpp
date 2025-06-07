@@ -10,6 +10,13 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 
 Game::Game() {
+  pugi::xml_document doc;
+  if (auto result = doc.load_file("res/map.xml"); !result) {
+    std::cerr << "Could not open file visage.xml because "
+              << result.description() << std::endl;
+  }
+  pugi::xml_node nodeSource = doc.child("map");
+  carte.makeCarte(nodeSource);
   // Juste pour tester (à enlever si jamais)
   auto chasseur1 = troupeFactory.creerTroupe("chasseur");
   auto chasseur2 = troupeFactory.creerTroupe("chasseur");
