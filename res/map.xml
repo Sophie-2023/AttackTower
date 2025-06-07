@@ -7,4 +7,5 @@
 	<champ x="50" y="50" taille="10" vie="100">
 		<defense type="canon" x="50" y="50"/>
 	</champ>
+	<foret x="800" y="600" taille="30"/>
 </map>

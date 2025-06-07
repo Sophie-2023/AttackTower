@@ -8,7 +8,7 @@ TourDeGuet::TourDeGuet(float x, float y)
       bulletTexture("res/bullet.png"),
       bullet(bulletTexture) {
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
-  sprite.setScale({0.2f, 0.2f});
+  sprite.setScale({0.15f, 0.15f});
   sprite.setPosition(position);
 
 }

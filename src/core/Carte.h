@@ -4,6 +4,7 @@
 #include "Base.h"
 #include <SFML/Graphics.hpp>
 #include "pugixml.hpp"
+#include "Foret.h"
 #ifndef CARTE_H
 #define CARTE_H
 

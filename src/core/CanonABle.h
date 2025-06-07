@@ -14,7 +14,7 @@ class CanonABle : public Defense {
   bool explosionEnCours = false;
 
   float progress = 0.0f;
-  float speed = 0.8; 
+  float speed = 1; 
   float arcHeight = 50;
   float timeExplosion = 0.0f;
 
