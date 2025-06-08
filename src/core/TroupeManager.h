@@ -7,8 +7,10 @@
 class TroupeManager {
  private:
   std::vector<std::unique_ptr<Troupe>> troupes;
+  TroupeFactory troupeFactory;
 
  public:
+  TroupeManager();
   void ajouterTroupe(std::unique_ptr<Troupe> troupe);
   void supprimerTroupe(std::unique_ptr<Troupe> troupe);
   void update(sf::Time elapsedTime);

@@ -9,8 +9,7 @@ Chasseur::Chasseur()
       texture("res/chasseur.png"),
       sprite(texture)  // pv = 50; vitesse = 50
 { 
-	position = {static_cast<float>(random_nMin_to_nMax(100, 900)),
-              static_cast<float>(random_nMin_to_nMax(100, 600))};
+	position = {500.f, 350.f};
     sprite.setOrigin(sprite.getLocalBounds().getCenter());
 	sprite.setScale({0.175f, 0.175f});
     sprite.setPosition(position);

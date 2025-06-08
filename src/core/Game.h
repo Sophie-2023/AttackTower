@@ -28,8 +28,8 @@ class Game {
   sf::RenderWindow mWindow{sf::VideoMode({1000, 700}), "Attack Tower Game"};
   sf::Texture mTexture;
   
+
   TroupeManager troupeManager;
-  TroupeFactory troupeFactory;
   Carte carte;
 
   Troupe *troupeSelectionnee = nullptr;

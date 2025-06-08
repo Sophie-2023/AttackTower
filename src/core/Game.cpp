@@ -17,14 +17,6 @@ Game::Game() {
   }
   pugi::xml_node nodeSource = doc.child("map");
   carte.makeCarte(nodeSource);
-  // Juste pour tester (à enlever si jamais)
-  auto chasseur1 = troupeFactory.creerTroupe("chasseur");
-  auto chasseur2 = troupeFactory.creerTroupe("chasseur");
-  auto loup = troupeFactory.creerTroupe("loup");
-  troupeManager.ajouterTroupe(std::move(chasseur1));
-  troupeManager.ajouterTroupe(std::move(chasseur2));
-  troupeManager.ajouterTroupe(std::move(loup));
-  
 }
 
 void Game::run() {
@@ -50,11 +42,12 @@ void Game::processEvents() {
       
       sf::Vector2f souris = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
       //std::cout << "Souris : (" << souris.x << ", " << souris.y << ")" << std::endl;
+      const auto& troupes = troupeManager.getTroupes();
 
-      for (auto const& troupePtr : troupeManager.getTroupes()) {
-        if (troupePtr->getBounds().contains(souris)) {
+      for (auto troupePtr = troupes.rbegin(); troupePtr != troupes.rend(); ++troupePtr) {
+        if ((*troupePtr)->getBounds().contains(souris)) {
           if (troupeSelectionnee) troupeSelectionnee->setSelected(false);
-          troupeSelectionnee = troupePtr.get();
+          troupeSelectionnee = troupePtr->get();
           troupeSelectionnee->setSelected(true);
           return;
         }
