@@ -19,6 +19,8 @@ class Game {
   void processEvents();
   void update(sf::Time elapsedTime);
   void render();
+  void updateTimer(sf::Time elapsedTime);
+
 
   void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 
@@ -31,6 +33,13 @@ class Game {
 
   TroupeManager troupeManager;
   Carte carte;
+
+  // affichage du timer
+  sf::Time timer{sf::Time::Zero};
+  int secondes{400};
+  sf::Font font;
+  sf::Text affichageTimer;
+
 
   Troupe *troupeSelectionnee = nullptr;
 

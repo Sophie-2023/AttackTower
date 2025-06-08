@@ -10,7 +10,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 
 
-Game::Game() {
+Game::Game() : font("res/Bobatime.ttf"),affichageTimer(font){
   pugi::xml_document doc;
   if (auto result = doc.load_file("res/map.xml"); !result) {
     std::cerr << "Could not open file visage.xml because "
@@ -18,6 +18,10 @@ Game::Game() {
   }
   pugi::xml_node nodeSource = doc.child("map");
   carte.makeCarte(nodeSource);
+  affichageTimer.setPosition(sf::Vector2f(940, 10));
+  affichageTimer.setString(std::to_string(secondes));
+  affichageTimer.setCharacterSize(35);
+  affichageTimer.setFillColor(sf::Color::White);
 }
 
 void Game::run() {
@@ -81,6 +85,7 @@ void Game::processEvents() {
 void Game::update(sf::Time elapsedTime) {
   carte.update(elapsedTime, troupeManager);
   troupeManager.update(elapsedTime);
+  updateTimer(elapsedTime);
 
 }
 
@@ -88,11 +93,24 @@ void Game::render() {
   mWindow.clear();
   carte.draw(mWindow);
   troupeManager.draw(mWindow);
-
+  mWindow.draw(affichageTimer);
   mWindow.display();
 }
 
 void Game::handlePlayerInput(const sf::Keyboard::Key key,
                              const bool isPressed) {
+
+}
+
+void Game::updateTimer(sf::Time elapsedTime) {
+  timer += elapsedTime;
+  if (timer >= sf::seconds(1.f)) {
+    timer -= sf::seconds(1.f);
+    --secondes;
+  }
+  int minutes = secondes / 60;
+  int sec_ =secondes% 60;
+  affichageTimer.setString(std::to_string(minutes) + ":" + std::to_string(sec_));
+
 
 }

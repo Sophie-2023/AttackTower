@@ -1,9 +1,9 @@
 #include "Base.h"
 
 Base::Base(const pugi::xml_node& node)
-    : Lieu(node), texture("res/champBle.jpg"), sprite(texture) {
+    : Lieu(node), texture("res/base.png"), sprite(texture) {
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
-  sprite.setScale({0.2f, 0.2f});
+  sprite.setScale({0.5f, 0.5f});
   sprite.setPosition(position);
 }
 
