@@ -1,6 +1,9 @@
 #include "EtatEnRoute.h"
 #include <iostream>
 #include <EtatCombat.h>
+#include <Champ.h>
+#include <Foret.h>
+#include <EtatExploitation.h>
 
 sf::Vector2f normaliser(const sf::Vector2f& v) {
   float longueur = std::sqrt(v.x * v.x + v.y * v.y);
@@ -23,7 +26,18 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
   float distance = std::sqrt(delta.x * delta.x + delta.y * delta.y);
 
   if (distance < 2.f) {
-    troupe.changerEtat(std::make_unique<EtatCombat>()); // Pas forcément EtatCombat (à changer)
+
+    if (auto* champ = dynamic_cast<Champ*>(destination)) {
+      troupe.changerEtat(std::make_unique<EtatCombat>());
+      std::cout << "Arrivée à destination : champ" << std::endl;
+    } else if (auto* foret = dynamic_cast<Foret*>(destination)) {
+      troupe.changerEtat(std::make_unique<EtatExploitation>());
+      std::cout << "Arrivée à destination : foret" << std::endl;
+    } else {
+      troupe.changerEtat(nullptr);
+      std::cout << "Arrivée à destination : base"
+                << std::endl;
+    }
     return;
   }
 

@@ -23,6 +23,7 @@ public:
 
     sf::Vector2f getPosition() const;
     float getVitesse() const;
+    State* getEtat() const;
     virtual sf::FloatRect getBounds() const = 0;
     virtual sf::Sprite& getSprite() = 0;
     virtual void setSelected(bool newBool);
