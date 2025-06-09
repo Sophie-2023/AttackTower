@@ -4,6 +4,6 @@
 
 class TroupeFactory {
  public:
-  std::unique_ptr<Troupe> creerTroupe(const std::string& type);
+  std::unique_ptr<Troupe> creerTroupe(const std::string& type, sf::Vector2f pos);
 
 };

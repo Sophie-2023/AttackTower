@@ -28,10 +28,10 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
   if (distance < 2.f) {
 
     if (auto* champ = dynamic_cast<Champ*>(destination)) {
-      troupe.changerEtat(std::make_unique<EtatCombat>());
+      troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));
       std::cout << "Arrivée à destination : champ" << std::endl;
     } else if (auto* foret = dynamic_cast<Foret*>(destination)) {
-      troupe.changerEtat(std::make_unique<EtatExploitation>(troupeManager, window));
+      troupe.changerEtat(std::make_unique<EtatExploitation>(destination, troupeManager, window));
       std::cout << "Arrivée à destination : foret" << std::endl;
     } else {  // C'est une base
       troupe.changerEtat(nullptr);

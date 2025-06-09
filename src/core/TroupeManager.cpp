@@ -1,27 +1,28 @@
 #include "TroupeManager.h"
 #include "TroupeFactory.h"
+#include "Carte.h"
 
 TroupeManager::TroupeManager() {
 
-  auto chasseur1 = troupeFactory.creerTroupe("chasseur");
-  auto chasseur2 = troupeFactory.creerTroupe("chasseur");
-  auto loup = troupeFactory.creerTroupe("loup");
+}
+
+void TroupeManager::initializeTroupe() {
+  auto chasseur1 = creerTroupe("chasseur", carte->getBase());
+  auto chasseur2 = creerTroupe("chasseur", carte->getBase());
+  auto loup = creerTroupe("loup", carte->getBase());
   ajouterTroupe(std::move(chasseur1));
   ajouterTroupe(std::move(chasseur2));
   ajouterTroupe(std::move(loup));
-
 }
 
+void TroupeManager::setCarte(Carte* carte_) { carte = carte_; }
 
-void TroupeManager::setCarte(Carte* carte) {
-  for (auto& troupe : troupes) {
-    troupe->setCarte(carte);
-  }
+std::unique_ptr<Troupe> TroupeManager::creerTroupe(const std::string& type, Lieu* lieu) {
+  return troupeFactory.creerTroupe(type, lieu->getPosition());
 }
 
-
-void TroupeManager::ajouterTroupe(std::unique_ptr<Troupe> troupe) { 
-	troupes.push_back(std::move(troupe)); 
+void TroupeManager::ajouterTroupe(std::unique_ptr<Troupe> troupe) {
+  troupesEnAttente.push_back(std::move(troupe));
 }
 
 void TroupeManager::supprimerTroupe(std::unique_ptr<Troupe> troupe) {
@@ -36,6 +37,12 @@ void TroupeManager::draw(sf::RenderWindow& window) {
 
 void TroupeManager::update(sf::Time elapsedTime) {
 	for (auto const& troupe : troupes) {
-    troupe->update(elapsedTime);
+		if (troupe) {
+		  troupe->update(elapsedTime);
+		}
 	}
-};
+    for (auto& newTroupe : troupesEnAttente) {
+        troupes.push_back(std::move(newTroupe));
+    }
+    troupesEnAttente.clear();
+}

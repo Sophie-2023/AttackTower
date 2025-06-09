@@ -4,11 +4,15 @@
 #include <iostream>
 #include "EtatExploitation.h"
 
-Loup::Loup() 
-    : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) {
-  position = {575.f, 350.f};
+Loup::Loup(sf::Vector2f pos) 
+    : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) 
+{
+  position = pos;
+  position.x += 65.f;
+  std::cout << "Position du loup : (" << position.x << ", " << position.y << ")"
+            << std::endl;
+  sprite.setOrigin(sprite.getLocalBounds().getCenter() + sf::Vector2f(0, 130));
   sprite.setScale({0.06f, 0.06f});
-  sprite.setOrigin(sprite.getLocalBounds().getCenter()+ sf::Vector2f(0, 130));
   sprite.setPosition(position);
 }
 

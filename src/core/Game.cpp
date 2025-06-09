@@ -24,6 +24,7 @@ Game::Game() : font("res/Bobatime.ttf"),affichageTimer(font){
   affichageTimer.setFillColor(sf::Color::White);
 
   troupeManager.setCarte(&carte);
+  troupeManager.initializeTroupe();
 }
 
 void Game::run() {

@@ -27,14 +27,12 @@ sf::Vector2f Troupe::getPosition() const { return position; }
 float Troupe::getVitesse() const { return vitesse; }
 State* Troupe::getEtat() const { return etat.get(); }
 bool Troupe::getIsInBase() const { return isInBase; }
-Carte* Troupe::getCarte() const { return carte; }
 
 
 void Troupe::setSelected(bool newBool) { selected = newBool; }
 void Troupe::setIsInBase(bool newBool) {
   isInBase = newBool;
 }
-void Troupe::setCarte(Carte* newCarte) { carte = newCarte; }
 
 
 void Troupe::changerEtat(std::unique_ptr<State> nouvelEtat) {

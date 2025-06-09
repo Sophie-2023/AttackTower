@@ -15,9 +15,6 @@ protected:
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
     bool isInBase;
 
-    Carte* carte;
-
-
 
 public:
     Troupe(int pv_, float vitesse_);
@@ -36,8 +33,6 @@ public:
     virtual void setSelected(bool newBool);
     void setPosition(sf::Vector2f newPos) { position = newPos; }
     void setIsInBase(bool newBool);
-    Carte* getCarte() const;
-    void setCarte(Carte* newCarte);
 
     int random_nMin_to_nMax(int const nMin, int const nMax); // à enlever (c'est ici juste pour tester)
 
