@@ -11,12 +11,13 @@ void Carte::makeCarte(const pugi::xml_node& node) {
     lieux.push_back(std::move(base_));
   }
   for (pugi::xml_node champ : node.children("champ")) {
-    auto champ1 = std::make_unique<Champ>(champ);
+    auto champ1 = std::make_unique<Champ>(champ,base);
     chemins.push_back(champ1->createChemin(base));
     lieux.push_back(std::move(champ1));
   }
   for (pugi::xml_node foret : node.children("foret")) {
     auto foret1 = std::make_unique<Foret>(foret);
+    foret1->rotateTo(base);
     chemins.push_back(foret1->createChemin(base));
     lieux.push_back(std::move(foret1));
   }

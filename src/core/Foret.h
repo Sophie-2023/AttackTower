@@ -11,6 +11,6 @@ class Foret : public Lieu {
   Foret(const pugi::xml_node& node);
   void draw(sf::RenderWindow& window) const override;
   void update(sf::Time elapsedTime, TroupeManager& TM) override;
-
- sf::FloatRect getBounds() const override;
+  void rotateTo(const Lieu* target);
+  sf::FloatRect getBounds() const override;
 };

@@ -8,7 +8,7 @@ Loup::Loup()
     : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) {
   position = {575.f, 350.f};
   sprite.setScale({0.06f, 0.06f});
-  sprite.setOrigin(sprite.getLocalBounds().getCenter());
+  sprite.setOrigin(sprite.getLocalBounds().getCenter()+ sf::Vector2f(0, 130));
   sprite.setPosition(position);
 }
 

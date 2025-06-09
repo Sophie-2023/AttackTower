@@ -11,7 +11,7 @@ Chasseur::Chasseur()
       sprite(texture)  // pv = 50; vitesse = 50
 { 
 	position = {500.f, 350.f};
-    sprite.setOrigin(sprite.getLocalBounds().getCenter());
+  sprite.setOrigin(sprite.getLocalBounds().getCenter() + sf::Vector2f(0, 130));
 	sprite.setScale({0.175f, 0.175f});
     sprite.setPosition(position);
 }

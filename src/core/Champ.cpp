@@ -4,15 +4,17 @@
 #include <iostream>
 
 
-Champ::Champ(const pugi::xml_node& node) : Lieu(node) ,
+Champ::Champ(const pugi::xml_node& node,Lieu* b) : Lieu(node) ,
       taille(node.attribute("taille").as_int()),
       vie(node.attribute("vie").as_int()),
       texture("res/champBle.jpg"),
-      sprite(texture) {
+      sprite(texture),
+      base(b){
 
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.01f * taille, 0.01f * taille});
   sprite.setPosition(position);
+  soldats.push_back(std::make_unique<Soldat>(position, base));
 
   for (auto& defense : node.children("defense")) {
     std::string type = defense.attribute("type").as_string();
@@ -23,12 +25,15 @@ Champ::Champ(const pugi::xml_node& node) : Lieu(node) ,
   }
 }
   
-void Champ::draw(sf::RenderWindow& window) const { 
+void Champ::draw(sf::RenderWindow& window) const {
   window.draw(sprite);
   for (auto& defense : defenses) {
     defense->draw(window);
   }
+  for (auto& soldat : soldats) {
+    soldat->draw(window);
   }
+}
 
 sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
 
@@ -36,6 +41,9 @@ sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
 void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
     for (auto& def : defenses) {
       def->update(elapsedTime, TM);
+    }
+    for (auto& soldat : soldats) {
+      soldat->update(elapsedTime, TM);
     }
   }
 

@@ -23,7 +23,7 @@ std::unique_ptr<sf::RectangleShape> Lieu::createChemin(Lieu* destination) const 
     std::unique_ptr<sf::RectangleShape> chemin = std::make_unique<sf::RectangleShape>();
     chemin->setSize(sf::Vector2f(distance, largeur));
     chemin->setTexture(&textureChemin);
-
+    chemin->setOrigin(sf::Vector2f(0.f, largeur / 2.f));
     // Positionner le rectangle au point A
     chemin->setPosition(position);
 
