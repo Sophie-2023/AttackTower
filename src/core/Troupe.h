@@ -3,6 +3,8 @@
 #include <random>
 #include "State.h"
 
+class Carte;  // Forward declaration to avoid circular dependency
+
 class Troupe {
 
 protected:
@@ -11,6 +13,10 @@ protected:
     std::unique_ptr<State> etat;
     sf::Vector2f position;
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
+    bool isInBase;
+
+    Carte* carte;
+
 
 
 public:
@@ -24,10 +30,14 @@ public:
     sf::Vector2f getPosition() const;
     float getVitesse() const;
     State* getEtat() const;
+    bool getIsInBase() const;
     virtual sf::FloatRect getBounds() const = 0;
     virtual sf::Sprite& getSprite() = 0;
     virtual void setSelected(bool newBool);
     void setPosition(sf::Vector2f newPos) { position = newPos; }
+    void setIsInBase(bool newBool);
+    Carte* getCarte() const;
+    void setCarte(Carte* newCarte);
 
     int random_nMin_to_nMax(int const nMin, int const nMax); // à enlever (c'est ici juste pour tester)
 

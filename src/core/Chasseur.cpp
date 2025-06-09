@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <random>
+#include "EtatExploitation.h"
 
 
 Chasseur::Chasseur() 
@@ -15,7 +16,12 @@ Chasseur::Chasseur()
     sprite.setPosition(position);
 }
 
-void Chasseur::draw(sf::RenderWindow& window) const { window.draw(sprite); }
+void Chasseur::draw(sf::RenderWindow& window) const { 
+  window.draw(sprite);
+  if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
+    exploitation->draw(window);
+  }
+}
 
 sf::FloatRect Chasseur::getBounds() const {
 	return sprite.getGlobalBounds();

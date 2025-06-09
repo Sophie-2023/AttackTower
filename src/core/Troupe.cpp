@@ -3,7 +3,12 @@
 
 
 Troupe::Troupe(int pv_, float vitesse_)
-    : pv(pv_), vitesse(vitesse_), position({0.f, 0.f}), selected(false) {}
+    : pv(pv_),
+    vitesse(vitesse_),
+    position({0.f, 0.f}),
+    selected(false),
+    isInBase(true)
+{}
 
 void Troupe::recevoirDegats(int amount) {
   pv += amount;
@@ -21,8 +26,16 @@ int Troupe::random_nMin_to_nMax(int const nMin, int const nMax) {
 sf::Vector2f Troupe::getPosition() const { return position; }
 float Troupe::getVitesse() const { return vitesse; }
 State* Troupe::getEtat() const { return etat.get(); }
+bool Troupe::getIsInBase() const { return isInBase; }
+Carte* Troupe::getCarte() const { return carte; }
+
 
 void Troupe::setSelected(bool newBool) { selected = newBool; }
+void Troupe::setIsInBase(bool newBool) {
+  isInBase = newBool;
+}
+void Troupe::setCarte(Carte* newCarte) { carte = newCarte; }
+
 
 void Troupe::changerEtat(std::unique_ptr<State> nouvelEtat) {
   etat = std::move(nouvelEtat);

@@ -2,6 +2,7 @@
 
 #include "Loup.h"
 #include <iostream>
+#include "EtatExploitation.h"
 
 Loup::Loup() 
     : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) {
@@ -13,6 +14,10 @@ Loup::Loup()
 
 void Loup::draw(sf::RenderWindow& window) const {
   window.draw(sprite);
+
+  if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
+    exploitation->draw(window);
+  }
 }
 
 sf::FloatRect Loup::getBounds() const { return sprite.getGlobalBounds(); }

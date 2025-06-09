@@ -19,5 +19,6 @@ class Carte {
     void update(sf::Time elapsedTime, TroupeManager& TM);
     void draw(sf::RenderWindow& window) const;
     std::vector<std::unique_ptr<Lieu>>& getLieux() { return lieux; }
+    Base* getBase() const { return base; }
 };
 #endif  // CARTE_H

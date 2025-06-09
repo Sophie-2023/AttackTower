@@ -22,6 +22,8 @@ Game::Game() : font("res/Bobatime.ttf"),affichageTimer(font){
   affichageTimer.setString(std::to_string(secondes));
   affichageTimer.setCharacterSize(35);
   affichageTimer.setFillColor(sf::Color::White);
+
+  troupeManager.setCarte(&carte);
 }
 
 void Game::run() {
@@ -62,11 +64,12 @@ void Game::processEvents() {
         for (auto& lieu : carte.getLieux()) {
           if (lieu->getBounds().contains(souris)) {
             auto* base = dynamic_cast<Base*>(lieu.get());
-            if (base || !troupeSelectionnee->getEtat()) {
+            if (base || troupeSelectionnee->getIsInBase()) { // Si on clique sur une base ou si la troupe est à la base
 
-              std::unique_ptr<EtatEnRoute> etatEnRoute = std::make_unique<EtatEnRoute>();
-              etatEnRoute->setDestination(lieu.get());
+              std::unique_ptr<EtatEnRoute> etatEnRoute = std::make_unique<EtatEnRoute>(lieu.get(), &troupeManager, &mWindow);
+              //etatEnRoute->setDestination(lieu.get());
               troupeSelectionnee->changerEtat(std::move(etatEnRoute));
+              troupeSelectionnee->setIsInBase(false);
               troupeSelectionnee->setSelected(false);
               troupeSelectionnee = nullptr;
               return;

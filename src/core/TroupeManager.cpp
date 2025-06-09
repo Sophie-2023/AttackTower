@@ -12,6 +12,14 @@ TroupeManager::TroupeManager() {
 
 }
 
+
+void TroupeManager::setCarte(Carte* carte) {
+  for (auto& troupe : troupes) {
+    troupe->setCarte(carte);
+  }
+}
+
+
 void TroupeManager::ajouterTroupe(std::unique_ptr<Troupe> troupe) { 
 	troupes.push_back(std::move(troupe)); 
 }

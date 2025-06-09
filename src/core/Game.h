@@ -30,9 +30,8 @@ class Game {
   sf::RenderWindow mWindow{sf::VideoMode({1000, 700}), "Attack Tower Game"};
   sf::Texture mTexture;
   
-
-  TroupeManager troupeManager;
   Carte carte;
+  TroupeManager troupeManager;
 
   // affichage du timer
   sf::Time timer{sf::Time::Zero};
