@@ -8,10 +8,25 @@ Base::Base(const pugi::xml_node& node)
 }
 
 void Base::update(sf::Time elapsedTime, TroupeManager& TM) {
-//jsp comment on va update
+  for (auto& soldat : soldats) {
+    soldat->update(elapsedTime, TM);
+  }
 }
 
-void Base::draw(sf::RenderWindow& window) const { window.draw(sprite); }
+void Base::draw(sf::RenderWindow& window) const {
+  window.draw(sprite);
+  for (auto& soldat : soldats) {
+    if (soldat) {
+      soldat->draw(window);
+    }
+  }
+}
 
 sf::FloatRect Base::getBounds() const { return sprite.getGlobalBounds(); }
 
+void Base::addSoldat(std::unique_ptr<Soldat> soldat) {
+  if (soldat) {
+    soldats.push_back(std::move(soldat));
+  };
+
+}

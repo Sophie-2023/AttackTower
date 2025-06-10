@@ -1,16 +1,22 @@
 #pragma once
 #include "Defense.h"
-#include "Lieu.h"
+class Base;
+
+class Champ;
+
 class Soldat : public Defense {
  private:
   int pv;
   float vitesse;
   sf::Texture texture;
   sf::Sprite sprite;
-  Lieu* base;  // Base où va le soldat
+  Base* base;  // Base où va le soldat
+  bool enMarche = false;
+  float time = 0.f;
+  Champ* proprio;
 
  public:
-  Soldat(sf::Vector2f pos,Lieu* base);
+  Soldat(sf::Vector2f pos, Base* base, Champ* p);
   void draw(sf::RenderWindow& window) const override;
   void attaquer(Troupe* cible) override;
   void updateAttaque(sf::Time elapsedTime, TroupeManager& TM) override;

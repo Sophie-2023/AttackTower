@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Champ::Champ(const pugi::xml_node& node,Lieu* b) : Lieu(node) ,
+Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
       taille(node.attribute("taille").as_int()),
       vie(node.attribute("vie").as_int()),
       texture("res/champBle.jpg"),
@@ -14,7 +14,7 @@ Champ::Champ(const pugi::xml_node& node,Lieu* b) : Lieu(node) ,
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.01f * taille, 0.01f * taille});
   sprite.setPosition(position);
-  soldats.push_back(std::make_unique<Soldat>(position, base));
+  soldats.push_back(std::make_unique<Soldat>(position, base,this));
 
   for (auto& defense : node.children("defense")) {
     std::string type = defense.attribute("type").as_string();
@@ -57,6 +57,19 @@ void Champ::addDefense(const std::string& type, float posx,float posy) {
         std::make_unique<CanonABle>(posx + position.x, posy + position.y));
   }
 
+}
+
+std::unique_ptr<Soldat> Champ::removeSoldat(Soldat* soldat) {
+  auto it = std::find_if(soldats.begin(), soldats.end(),
+                         [soldat](const std::unique_ptr<Soldat>& s) {
+                           return s.get() == soldat;
+                         });
+  if (it != soldats.end()) {
+    std::unique_ptr<Soldat> removedSoldat = std::move(*it);
+    soldats.erase(it);
+    return std::move(removedSoldat);
+  }
+  return nullptr;
 }
 
 //void takeDamage(int d);
