@@ -4,7 +4,7 @@
 
 class Chasseur : public Troupe {
  public:
-  Chasseur(sf::Vector2f pos);
+  explicit Chasseur(Lieu* lieu);
   void draw(sf::RenderWindow& window) const override;
   void update(sf::Time elapsedTime) override;
   sf::FloatRect getBounds() const override;

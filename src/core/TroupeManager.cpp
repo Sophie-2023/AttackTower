@@ -2,10 +2,6 @@
 #include "TroupeFactory.h"
 #include "Carte.h"
 
-TroupeManager::TroupeManager() {
-
-}
-
 void TroupeManager::initializeTroupe() {
   auto chasseur1 = creerTroupe("chasseur", carte->getBase());
   auto chasseur2 = creerTroupe("chasseur", carte->getBase());
@@ -18,7 +14,7 @@ void TroupeManager::initializeTroupe() {
 void TroupeManager::setCarte(Carte* carte_) { carte = carte_; }
 
 std::unique_ptr<Troupe> TroupeManager::creerTroupe(const std::string& type, Lieu* lieu) {
-  return troupeFactory.creerTroupe(type, lieu->getPosition());
+  return troupeFactory.creerTroupe(type, lieu);
 }
 
 void TroupeManager::ajouterTroupe(std::unique_ptr<Troupe> troupe) {
@@ -29,7 +25,7 @@ void TroupeManager::supprimerTroupe(std::unique_ptr<Troupe> troupe) {
 
 }
 
-void TroupeManager::draw(sf::RenderWindow& window) { 
+void TroupeManager::draw(sf::RenderWindow& window) const { 
 	for (auto const& troupe : troupes) {
 		troupe->draw(window);
 	}

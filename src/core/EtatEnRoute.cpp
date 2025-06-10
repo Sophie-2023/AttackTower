@@ -21,28 +21,43 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
     return;
   }
 
-  sf::Vector2f position = troupe.getPosition();
-  sf::Vector2f delta = destination->getPosition() - position;
+  sf::Vector2f currentPos = troupe.getPosition();
+  sf::Vector2f targetPos;
+
+  if (phase == 1) targetPos = troupe.getLieuActuel()->getPosition();
+  if (phase == 2) targetPos = destination->getPosition();
+  if (phase == 3) targetPos = destination->getPosition() + troupe.getDecalagePosition();
+
+  sf::Vector2f delta = targetPos - currentPos;
   float distance = std::sqrt(delta.x * delta.x + delta.y * delta.y);
 
   if (distance < 2.f) {
 
+    if (!(phase == 3)) {
+      phase++;  // On incrémente le numéro de phase
+      return;
+    } else {
+      troupe.setLieuActuel(destination);
+    }
+
     if (auto* champ = dynamic_cast<Champ*>(destination)) {
       troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));
-      std::cout << "Arrivée à destination : champ" << std::endl;
+      //std::cout << "Arrivée à destination : champ\n";
     } else if (auto* foret = dynamic_cast<Foret*>(destination)) {
       troupe.changerEtat(std::make_unique<EtatExploitation>(destination, troupeManager, window));
-      std::cout << "Arrivée à destination : foret" << std::endl;
-    } else {  // C'est une base
+      //std::cout << "Arrivée à destination : foret\n";
+    } else {
       troupe.changerEtat(nullptr);
       troupe.setIsInBase(true);
-      std::cout << "Arrivée à destination : base"
-                << std::endl;
+      //std::cout << "Arrivée à destination : base\n";
     }
     return;
   }
 
-  sf::Vector2f direction = normaliser(destination->getPosition() - position) * troupe.getVitesse();
+  sf::Vector2f direction = normaliser(delta) * troupe.getVitesse();
   troupe.getSprite().move(direction * elapsedTime.asSeconds());
-  troupe.setPosition(position + direction * elapsedTime.asSeconds());
+  troupe.setPosition(currentPos + direction * elapsedTime.asSeconds());
 }
+
+
+

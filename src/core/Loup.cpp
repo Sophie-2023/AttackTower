@@ -4,13 +4,13 @@
 #include <iostream>
 #include "EtatExploitation.h"
 
-Loup::Loup(sf::Vector2f pos) 
+Loup::Loup(Lieu* lieu) 
     : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) 
-{
-  position = pos;
-  position.x += 65.f;
-  std::cout << "Position du loup : (" << position.x << ", " << position.y << ")"
-            << std::endl;
+{ 
+  lieuActuel = lieu;
+  decalagePosition = {65.f, 0.f};
+  position = lieuActuel->getPosition();
+  position.x += decalagePosition.x;
   sprite.setOrigin(sprite.getLocalBounds().getCenter() + sf::Vector2f(0, 130));
   sprite.setScale({0.06f, 0.06f});
   sprite.setPosition(position);

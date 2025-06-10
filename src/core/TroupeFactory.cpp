@@ -4,11 +4,11 @@
 #include <iostream>
 
 
-std::unique_ptr<Troupe> TroupeFactory::creerTroupe(const std::string& type, sf::Vector2f pos) {
+std::unique_ptr<Troupe> TroupeFactory::creerTroupe(const std::string& type, Lieu* lieu) {
   if (type == "loup") {
-    return std::make_unique<Loup>(pos);
+    return std::make_unique<Loup>(lieu);
   }
-	//if (type == "elephant") return std::make_unique<Elephant>(pos);
-	if (type == "chasseur") return std::make_unique<Chasseur>(pos);
+	//if (type == "elephant") return std::make_unique<Elephant>(lieu);
+	if (type == "chasseur") return std::make_unique<Chasseur>(lieu);
 	return nullptr;
 }

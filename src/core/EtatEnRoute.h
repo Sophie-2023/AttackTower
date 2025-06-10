@@ -7,6 +7,7 @@
 class EtatEnRoute : public State {
  private: 
   Lieu* destination;
+  int phase = 1;
 
  public:
   EtatEnRoute(Lieu* dest, TroupeManager* tm, sf::RenderWindow* win)

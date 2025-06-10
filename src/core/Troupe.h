@@ -4,6 +4,7 @@
 #include "State.h"
 
 class Carte;  // Forward declaration to avoid circular dependency
+class Lieu;   // Forward declaration to avoid circular dependency
 
 class Troupe {
 
@@ -14,7 +15,9 @@ protected:
     sf::Vector2f position;
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
     bool isInBase;
-
+    sf::Vector2f decalagePosition;  // Décalage de la position pour le sprite
+                                    // (quand il est dans la base, par exemple)
+    Lieu* lieuActuel = nullptr;
 
 public:
     Troupe(int pv_, float vitesse_);
@@ -25,6 +28,8 @@ public:
     void changerEtat(std::unique_ptr<State> nouvelEtat);
 
     sf::Vector2f getPosition() const;
+    sf::Vector2f getDecalagePosition() const { return decalagePosition; }
+    Lieu* getLieuActuel() const { return lieuActuel; }
     float getVitesse() const;
     State* getEtat() const;
     bool getIsInBase() const;
@@ -33,6 +38,7 @@ public:
     virtual void setSelected(bool newBool);
     void setPosition(sf::Vector2f newPos) { position = newPos; }
     void setIsInBase(bool newBool);
+    void setLieuActuel(Lieu* lieu);
 
     int random_nMin_to_nMax(int const nMin, int const nMax); // à enlever (c'est ici juste pour tester)
 

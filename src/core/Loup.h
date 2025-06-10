@@ -5,7 +5,7 @@
 
 class Loup : public Troupe {
  public:
-  Loup(sf::Vector2f pos);
+  explicit Loup(Lieu* lieu);
   void draw(sf::RenderWindow& window) const override;
   void update(sf::Time elapsedTime) override;
   sf::FloatRect getBounds() const override;

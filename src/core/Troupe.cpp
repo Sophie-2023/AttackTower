@@ -1,5 +1,6 @@
 #include "Troupe.h"
 #include <iostream>
+#include "Lieu.h"
 
 
 Troupe::Troupe(int pv_, float vitesse_)
@@ -7,7 +8,8 @@ Troupe::Troupe(int pv_, float vitesse_)
     vitesse(vitesse_),
     position({0.f, 0.f}),
     selected(false),
-    isInBase(true)
+    isInBase(true),
+    decalagePosition({0.f, 0.f}) 
 {}
 
 void Troupe::recevoirDegats(int amount) {
@@ -33,6 +35,7 @@ void Troupe::setSelected(bool newBool) { selected = newBool; }
 void Troupe::setIsInBase(bool newBool) {
   isInBase = newBool;
 }
+void Troupe::setLieuActuel(Lieu* lieu) { lieuActuel = lieu; }
 
 
 void Troupe::changerEtat(std::unique_ptr<State> nouvelEtat) {

@@ -16,13 +16,12 @@ class TroupeManager {
   Carte* carte = nullptr;  // Pointeur vers la carte associée
 
  public:
-  TroupeManager();
   void initializeTroupe();
   std::unique_ptr<Troupe> creerTroupe(const std::string& type, Lieu* lieu);
   void ajouterTroupe(std::unique_ptr<Troupe> troupe);
   void supprimerTroupe(std::unique_ptr<Troupe> troupe);
   void update(sf::Time elapsedTime);
-  void draw(sf::RenderWindow& window);
+  void draw(sf::RenderWindow& window) const;
   std::vector<std::unique_ptr<Troupe>>& getTroupes() { return troupes; }
 
   Carte* getCarte() const { return carte; } // Pour avoir accès à la base

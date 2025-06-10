@@ -6,16 +6,16 @@
 #include <iostream>
 
 
-Chasseur::Chasseur(sf::Vector2f pos) 
+Chasseur::Chasseur(Lieu* lieu) 
 	: Troupe(50, 50.f),
       texture("res/chasseur.png"),
       sprite(texture)  // pv = 50; vitesse = 50
 { 
-    std::cout << "Position du chasseur : (" << pos.x << ", " << pos.y << ")"
-            << std::endl;
-	position = pos;
-    position.x += 10.f;
-    position.y -= 40.f;
+    lieuActuel = lieu;
+	position = lieuActuel->getPosition();
+    decalagePosition = {10.f, -40.f};  // Décalage pour le sprite
+    position.x += decalagePosition.x;
+    position.y += decalagePosition.y;
     sprite.setOrigin(sprite.getLocalBounds().getCenter() + sf::Vector2f(0, 130));
 	sprite.setScale({0.175f, 0.175f});
     sprite.setPosition(position);
