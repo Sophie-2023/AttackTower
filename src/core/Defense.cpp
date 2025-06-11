@@ -3,9 +3,14 @@
 
 
  Defense::Defense(float r, float c, sf::Vector2f pos)
-    : rayon(r), cadence(c), cible(nullptr), timer(0.0f),position(pos) {
- }
+    : rayon(r), cadence(c), cible(nullptr), timer(0.0f),position(pos), pv(50) {
+ } // Ne pas oublier de changer l'initialisation du pv des défenses
 
+ void Defense::recevoirDegats(int amount) {
+   pv += amount;
+   if (pv <= 0) pv = 0;
+   std::cout << "Defense : PV: " << pv << std::endl;
+ }
 
  void Defense::update(sf::Time elapsedTime, TroupeManager& TM) {
    timer += elapsedTime.asSeconds();

@@ -5,6 +5,7 @@
 #include "pugixml.hpp"
 
 class Defense {
+  int pv;
   float rayon;
   Troupe* cible;
   float timer;
@@ -19,4 +20,9 @@ public:
   virtual void draw(sf::RenderWindow& window) const = 0;
   virtual void attaquer(Troupe* cible) = 0;
   virtual void updateAttaque(sf::Time elapsedTime, TroupeManager& TM) = 0;
+  void recevoirDegats(int amount);
+
+  int getPv() const { return pv; }
+  sf::Vector2f getPosition() const { return position; }
+
 };
