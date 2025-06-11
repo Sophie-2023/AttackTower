@@ -10,6 +10,8 @@ class Troupe {
 
 protected:
 	int pv;
+    int pvMax;                   
+    sf::RectangleShape barrePv;  // Barre de vie pour l'affichage
 	float vitesse;
     std::unique_ptr<State> etat;
     sf::Vector2f position;
@@ -20,7 +22,7 @@ protected:
     Lieu* lieuActuel = nullptr;
 
 public:
-    Troupe(int pv_, float vitesse_);
+    Troupe(int pv_, int pvMax_, float vitesse_);
 	virtual ~Troupe() = default;
     virtual void update(sf::Time elapsedTime) = 0;
     virtual void draw(sf::RenderWindow& window) const = 0;
@@ -31,6 +33,7 @@ public:
     sf::Vector2f getDecalagePosition() const { return decalagePosition; }
     Lieu* getLieuActuel() const { return lieuActuel; }
     float getVitesse() const;
+    int getPv() const { return pv; }    
     State* getEtat() const;
     bool getIsInBase() const;
     virtual sf::FloatRect getBounds() const = 0;

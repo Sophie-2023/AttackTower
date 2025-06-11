@@ -5,7 +5,7 @@
 #include "EtatExploitation.h"
 
 Loup::Loup(Lieu* lieu) 
-    : Troupe(100, 100.0f), texture("res/loup.png"), sprite(texture) 
+    : Troupe(100, 100, 100.0f), texture("res/loup.png"), sprite(texture) 
 { 
   lieuActuel = lieu;
   decalagePosition = {65.f, 0.f};
@@ -14,10 +14,12 @@ Loup::Loup(Lieu* lieu)
   sprite.setOrigin(sprite.getLocalBounds().getCenter() + sf::Vector2f(0, 130));
   sprite.setScale({0.06f, 0.06f});
   sprite.setPosition(position);
+  barrePv.setPosition({position.x - 25.f, position.y - 35.f});
 }
 
 void Loup::draw(sf::RenderWindow& window) const {
   window.draw(sprite);
+  window.draw(barrePv);
 
   if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
     exploitation->draw(window);
@@ -36,9 +38,8 @@ void Loup::setSelected(bool newBool) {
   }
 }
 
-void Loup::update(sf::Time elapsedTime) { 
-    sf::Vector2f movement(vitesse, 0.f);
-    //sprite.move(movement * elapsedTime.asSeconds());
+void Loup::update(sf::Time elapsedTime) {
+    barrePv.setPosition({position.x - 25.f, position.y - 35.f});
     if (etat) {
       etat->agir(*this, elapsedTime);
     }

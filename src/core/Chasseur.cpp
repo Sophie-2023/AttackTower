@@ -7,7 +7,7 @@
 
 
 Chasseur::Chasseur(Lieu* lieu) 
-	: Troupe(50, 50.f),
+	: Troupe(50, 50, 50.f),
       texture("res/chasseur.png"),
       sprite(texture)  // pv = 50; vitesse = 50
 { 
@@ -19,10 +19,13 @@ Chasseur::Chasseur(Lieu* lieu)
     sprite.setOrigin(sprite.getLocalBounds().getCenter() + sf::Vector2f(0, 130));
 	sprite.setScale({0.175f, 0.175f});
     sprite.setPosition(position);
+    barrePv.setPosition({position.x - 25.f, position.y - 60.f});
 }
 
 void Chasseur::draw(sf::RenderWindow& window) const { 
   window.draw(sprite);
+  window.draw(barrePv);
+
   if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
     exploitation->draw(window);
   }
@@ -45,8 +48,7 @@ void Chasseur::setSelected(bool newBool) {
 
 void Chasseur::update(sf::Time elapsedTime) 
 { 
-	sf::Vector2f movement(-vitesse, 0.f);
-	//sprite.move(movement * elapsedTime.asSeconds());
+    barrePv.setPosition({position.x - 25.f, position.y - 60.f});
     if (etat) {
         etat->agir(*this, elapsedTime);
     }
