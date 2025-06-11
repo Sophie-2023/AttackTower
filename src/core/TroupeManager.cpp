@@ -1,6 +1,7 @@
 #include "TroupeManager.h"
 #include "TroupeFactory.h"
 #include "Carte.h"
+#include <iostream>
 
 void TroupeManager::initializeTroupe() {
   auto chasseur1 = creerTroupe("chasseur", carte->getBase());
@@ -37,6 +38,19 @@ void TroupeManager::update(sf::Time elapsedTime) {
 		  troupe->update(elapsedTime);
 		}
 	}
+
+    // On regarde si une des troupes est morte pour l'enlever de la liste des troupes
+	for (auto it = troupes.begin(); it != troupes.end(); ) {
+        if (*it && (*it)->getPv() <= 0) {
+        std::cout << "Troupe supprimée" << std::endl;
+        // Libère la mémoire et enlève du vecteur
+        it = troupes.erase(it);
+        } else {
+        ++it;  // Passe à la suivante
+        }
+    }
+
+
     for (auto& newTroupe : troupesEnAttente) {
         troupes.push_back(std::move(newTroupe));
     }
