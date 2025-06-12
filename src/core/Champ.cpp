@@ -14,7 +14,6 @@ Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.01f * taille, 0.01f * taille});
   sprite.setPosition(position);
-  soldats.push_back(std::make_unique<Soldat>(position, base,this));
 
   for (auto& defense : node.children("defense")) {
     std::string type = defense.attribute("type").as_string();
@@ -28,10 +27,9 @@ Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
 void Champ::draw(sf::RenderWindow& window) const {
   window.draw(sprite);
   for (auto& defense : defenses) {
-    defense->draw(window);
-  }
-  for (auto& soldat : soldats) {
-    soldat->draw(window);
+    if (defense) {
+      defense->draw(window);
+    }
   }
 }
 
@@ -39,11 +37,21 @@ sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
 
 
 void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
+  underAttack = false;
     for (auto& def : defenses) {
-      def->update(elapsedTime, TM);
+      if (def) {
+        if (def->getAttaqueEnCours()) {
+          underAttack = true;
+        }
+        def->update(elapsedTime, TM);
+
+      }
     }
-    for (auto& soldat : soldats) {
-      soldat->update(elapsedTime, TM);
+    //spawn des soldats
+    timeSinceLastSpawn += elapsedTime.asSeconds();
+    if (timeSinceLastSpawn >= spawnInterval) {
+        addSoldat();
+        timeSinceLastSpawn = 0.0f;
     }
   }
 
@@ -59,17 +67,33 @@ void Champ::addDefense(const std::string& type, float posx,float posy) {
 
 }
 
-std::unique_ptr<Soldat> Champ::removeSoldat(Soldat* soldat) {
-  auto it = std::find_if(soldats.begin(), soldats.end(),
-                         [soldat](const std::unique_ptr<Soldat>& s) {
+std::unique_ptr<Defense> Champ::removeSoldat(Defense* soldat) {
+  auto it = std::find_if(defenses.begin(), defenses.end(),
+                         [soldat](const std::unique_ptr<Defense>& s) {
                            return s.get() == soldat;
                          });
-  if (it != soldats.end()) {
-    std::unique_ptr<Soldat> removedSoldat = std::move(*it);
-    soldats.erase(it);
+  if (it != defenses.end()) {
+    std::unique_ptr<Defense> removedSoldat = std::move(*it);
+    defenses.erase(it);
     return std::move(removedSoldat);
   }
   return nullptr;
 }
+
+int random_nMin_to_nMax(int const nMin, int const nMax) {
+  static std::random_device rd;
+  static std::default_random_engine engine(rd());
+  std::uniform_int_distribution distribution(nMin, nMax);
+  return distribution(engine);
+}
+
+void Champ::addSoldat() {
+  sf::FloatRect bounds = sprite.getGlobalBounds();
+  int x = random_nMin_to_nMax(-bounds.size.x/2+15, bounds.size.x/2-15);
+  int y = random_nMin_to_nMax(-bounds.size.y/2+15, bounds.size.y/2-15);
+  defenses.push_back(std::make_unique<Soldat>(sf::Vector2f(position.x+x,position.y+y), base, this));
+}
+
+bool Champ::getUnderAttack() { return underAttack; }
 
 //void takeDamage(int d);

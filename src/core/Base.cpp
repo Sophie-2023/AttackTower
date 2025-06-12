@@ -1,4 +1,5 @@
 #include "Base.h"
+#include <iostream>
 
 Base::Base(const pugi::xml_node& node)
     : Lieu(node), texture("res/base.png"), sprite(texture) {
@@ -8,14 +9,14 @@ Base::Base(const pugi::xml_node& node)
 }
 
 void Base::update(sf::Time elapsedTime, TroupeManager& TM) {
-  for (auto& soldat : soldats) {
+  for (auto& soldat : defenses) {
     soldat->update(elapsedTime, TM);
   }
 }
 
 void Base::draw(sf::RenderWindow& window) const {
   window.draw(sprite);
-  for (auto& soldat : soldats) {
+  for (auto& soldat : defenses) {
     if (soldat) {
       soldat->draw(window);
     }
@@ -24,9 +25,9 @@ void Base::draw(sf::RenderWindow& window) const {
 
 sf::FloatRect Base::getBounds() const { return sprite.getGlobalBounds(); }
 
-void Base::addSoldat(std::unique_ptr<Soldat> soldat) {
+void Base::addSoldat(std::unique_ptr<Defense> soldat) {
   if (soldat) {
-    soldats.push_back(std::move(soldat));
+    defenses.push_back(std::move(soldat));
   };
 
 }

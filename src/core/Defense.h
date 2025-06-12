@@ -5,11 +5,16 @@
 #include "pugixml.hpp"
 
 class Defense {
-  int pv;
+ 
   float rayon;
   Troupe* cible;
   float timer;
   float cadence;
+  int pv;
+
+ protected:
+ bool attaqueEnCours = false;
+  bool underAttack = false;
 
 public:
   sf::Vector2f position;
@@ -24,5 +29,6 @@ public:
 
   int getPv() const { return pv; }
   sf::Vector2f getPosition() const { return position; }
+  bool getAttaqueEnCours();
 
 };

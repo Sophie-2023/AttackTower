@@ -15,25 +15,30 @@
  void Defense::update(sf::Time elapsedTime, TroupeManager& TM) {
    timer += elapsedTime.asSeconds();
    updateAttaque(elapsedTime,TM);
-   float distMin = rayon;
-   bool found = false;
-   for (auto& troupe : TM.getTroupes()) {
-     float dist = (troupe->getPosition() - position).length();
+   if (timer > cadence) {
+     float distMin = rayon;
+     bool found = false;
+     for (auto& troupe : TM.getTroupes()) {
+       float dist = (troupe->getPosition() - position).length();
 
-      if (dist <= distMin) {
-          cible = troupe.get();
-        distMin = dist;
-        found = true;
+        if (dist <= distMin) {
+            cible = troupe.get();
+          distMin = dist;
+          found = true;
 
-      }
-   }
-   if (!found) {
-     cible = nullptr;
-     return;
+        }
+     }
+     if (!found) {
+       cible = nullptr;
+       underAttack = false;
+       return;
+     } else {
+       timer = 0;
+       attaquer(cible);
+       underAttack = true;
+     }
    }
    
-   if (timer > cadence) {
-     timer = 0;
-     attaquer(cible);
-   }
+  
  }
+ bool Defense::getAttaqueEnCours() { return (underAttack); }

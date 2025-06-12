@@ -28,12 +28,6 @@ void Troupe::recevoirDegats(int amount) {
   barrePv.setSize({50.f * proportion, 5.f});
 }
 
-int Troupe::random_nMin_to_nMax(int const nMin, int const nMax) {
-  static std::random_device rd;
-  static std::default_random_engine engine(rd());
-  std::uniform_int_distribution distribution(nMin, nMax);
-  return distribution(engine);
-}
 
 sf::Vector2f Troupe::getPosition() const { return position; }
 float Troupe::getVitesse() const { return vitesse; }
