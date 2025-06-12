@@ -1,10 +1,11 @@
 #include "Soldat.h"
 #include "Champ.h"
 #include "Base.h"
+#include <iostream>
 
 Soldat::Soldat(sf::Vector2f pos, Base* base_,Champ* p)
     : 
-  Defense(5, 3, pos),
+  Defense(30, 3, pos),
   pv(40), 
   vitesse(15),
   texture("res/fermier.png"),
@@ -18,7 +19,11 @@ Soldat::Soldat(sf::Vector2f pos, Base* base_,Champ* p)
 
 void Soldat::draw(sf::RenderWindow& window) const { window.draw(sprite); }
 
-void Soldat::attaquer(Troupe* cible) {}
+void Soldat::attaquer(Troupe* cible) { 
+  std::cout << "attaque du soldat" << std::endl;
+  cible->recevoirDegats(degats); }
+
+
 void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
   time += elapsedTime.asSeconds();
   if (time >= 5 && proprio!=nullptr && !proprio->getUnderAttack()) {

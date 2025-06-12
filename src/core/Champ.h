@@ -13,7 +13,7 @@ class Champ : public Lieu {
 
   Base* base;
   float timeSinceLastSpawn=0;
-  float spawnInterval = 10.0f;  // Intervalle de spawn en secondes
+  float spawnInterval = 15.0f;  // Intervalle de spawn en secondes
   bool underAttack = false;
 
  public:
