@@ -3,7 +3,7 @@
 #include "Base.h"
 #include <iostream>
 
-Soldat::Soldat(sf::Vector2f pos, Base* base_,Champ* p)
+Soldat::Soldat(sf::Vector2f pos, Base* base_, Champ* p)
     : 
   Defense(30, 3, pos),
   pv(40), 
@@ -11,13 +11,20 @@ Soldat::Soldat(sf::Vector2f pos, Base* base_,Champ* p)
   texture("res/fermier.png"),
   sprite(texture),
   base(base_) ,
-  proprio(p){
+  proprio(p)
+{
   sprite.setScale({0.06f, 0.06f});
   sprite.setOrigin(sprite.getLocalBounds().getCenter()+ sf::Vector2f(0, 250));
   sprite.setPosition(position);
+
+  barrePv.setPosition({position.x, position.y - 45.f});
 };
 
-void Soldat::draw(sf::RenderWindow& window) const { window.draw(sprite); }
+void Soldat::draw(sf::RenderWindow& window) const 
+{ 
+    window.draw(sprite); 
+    window.draw(barrePv);
+}
 
 void Soldat::attaquer(Troupe* cible) { 
   std::cout << "attaque du soldat" << std::endl;
@@ -35,6 +42,7 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
         (base->getPosition() - position).normalized() * vitesse;
     position += direction * elapsedTime.asSeconds();
     sprite.move(direction * elapsedTime.asSeconds());
+    barrePv.setPosition({position.x, position.y - 45.f});
     if (proprio != nullptr && (!proprio->getBounds().contains(position))) {
         base->addSoldat(proprio->removeSoldat(this));
         proprio = nullptr;

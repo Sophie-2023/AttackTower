@@ -3,16 +3,25 @@
 
 
  Defense::Defense(float r, float c, sf::Vector2f pos)
-    : rayon(r), cadence(c), cible(nullptr), timer(0.0f),position(pos), pv(50) {
+    : rayon(r), cadence(c), cible(nullptr), timer(0.0f),position(pos), pv(50), pvMax(50) 
+ {
+   barrePv.setSize({50.f, 5.f});
+   barrePv.setFillColor(sf::Color::Magenta);
+   barrePv.setOrigin(barrePv.getLocalBounds().getCenter());
  } // Ne pas oublier de changer l'initialisation du pv des défenses
 
  void Defense::recevoirDegats(int amount) {
    pv += amount;
    if (pv <= 0) pv = 0;
-   std::cout << "Defense : PV: " << pv << std::endl;
+   if (pv > pvMax) pv = pvMax;
+
+   float proportion = static_cast<float>(pv) / static_cast<float>(pvMax);
+   proportion = std::clamp(proportion, 0.f, 1.f);  // éviter valeur négative
+   barrePv.setSize({50.f * proportion, 5.f});
  }
 
  void Defense::update(sf::Time elapsedTime, TroupeManager& TM) {
+
    timer += elapsedTime.asSeconds();
    updateAttaque(elapsedTime,TM);
    if (timer > cadence) {
@@ -39,6 +48,5 @@
      }
    }
    
-  
  }
  bool Defense::getAttaqueEnCours() { return (underAttack); }

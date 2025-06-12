@@ -7,6 +7,7 @@
 class EtatCombat : public State {
 
   Defense* cible;
+  sf::Time tempsEcoule = sf::Time::Zero; // Temps écoulé depuis la dernière attaque
 
  public:
   EtatCombat(TroupeManager* tm, sf::RenderWindow* win);

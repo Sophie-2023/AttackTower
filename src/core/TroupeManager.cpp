@@ -3,10 +3,15 @@
 #include "Carte.h"
 #include <iostream>
 
-void TroupeManager::initializeTroupe() {
+#include "EtatCombat.h"
+
+void TroupeManager::initializeTroupe(sf::RenderWindow& window) {
   auto chasseur1 = creerTroupe("chasseur", carte->getBase());
   auto chasseur2 = creerTroupe("chasseur", carte->getBase());
   auto loup = creerTroupe("loup", carte->getBase());
+  chasseur1->changerEtat(std::make_unique<EtatCombat>(this, &window));
+  chasseur2->changerEtat(std::make_unique<EtatCombat>(this, &window));
+  loup->changerEtat(std::make_unique<EtatCombat>(this, &window));
   ajouterTroupe(std::move(chasseur1));
   ajouterTroupe(std::move(chasseur2));
   ajouterTroupe(std::move(loup));
