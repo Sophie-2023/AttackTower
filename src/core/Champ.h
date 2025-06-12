@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Defense.h"
 #include "Lieu.h"
 #include "Soldat.h"
 
@@ -14,7 +13,6 @@ class Champ : public Lieu {
 
   Base* base;
 
-  std::vector<std::unique_ptr<Defense>> defenses; // Mettre defenses et getDefenses dans Lieu ?
   std::vector<std::unique_ptr<Soldat>> soldats;
 
  public:
@@ -25,6 +23,5 @@ class Champ : public Lieu {
   std::unique_ptr<Soldat> removeSoldat(Soldat* soldat);
   // void takeDamage(int d);
   sf::FloatRect getBounds() const override;
-  std::vector<std::unique_ptr<Defense>>& getDefenses() { return defenses; }
 
 };

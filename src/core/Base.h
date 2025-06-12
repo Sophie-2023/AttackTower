@@ -8,6 +8,7 @@ class Base : public Lieu{
   sf::Texture texture;
   sf::Sprite sprite;
 
+  // EtatCombat choisit comme cible la première defense du vecteur defenses (Lieu.h)
   std::vector<std::unique_ptr<Soldat>> soldats;
 
   public:
