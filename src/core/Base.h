@@ -9,12 +9,11 @@ class Base : public Lieu{
   sf::Sprite sprite;
 
   // EtatCombat choisit comme cible la première defense du vecteur defenses (Lieu.h)
-  std::vector<std::unique_ptr<Soldat>> soldats;
 
   public:
   Base(const pugi::xml_node& node);
    void update(sf::Time elapsedTime, TroupeManager& TM) override;
   void draw(sf::RenderWindow& window) const override;
    sf::FloatRect getBounds() const override;
-  void addSoldat(std::unique_ptr<Soldat> soldat);
+  void addSoldat(std::unique_ptr<Defense> soldat);
 };

@@ -10,11 +10,11 @@ class CanonABle : public Defense {
   sf::Texture texture;
   sf::Sprite sprite;
 
-  bool attaqueEnCours = false;
+
   bool explosionEnCours = false;
 
   float progress = 0.0f;
-  float speed = 1; 
+  float speed = 1.4f; 
   float arcHeight = 50;
   float timeExplosion = 0.0f;
 

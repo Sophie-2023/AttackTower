@@ -8,7 +8,6 @@ class TourDeGuet : public Defense {
    sf::Texture texture;
    sf::Sprite sprite;
 
-   bool attaqueEnCours = false;
 
    sf::Texture bulletTexture;
    sf::Sprite bullet;

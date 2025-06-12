@@ -48,7 +48,6 @@ public:
     void setIsInBase(bool newBool);
     void setLieuActuel(Lieu* lieu);
 
-    int random_nMin_to_nMax(int const nMin, int const nMax); // à enlever (c'est ici juste pour tester)
-
+  
 };
 
