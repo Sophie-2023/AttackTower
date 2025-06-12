@@ -7,7 +7,8 @@
 class Lieu {
  private:
   sf::Texture textureChemin;
-
+  int pvMax;
+  int pv;
    protected:
   sf::Vector2f position;
   std::vector<std::unique_ptr<Defense>> defenses;
@@ -21,6 +22,7 @@ class Lieu {
   sf::Vector2f getPosition() const;
   std::vector<std::unique_ptr<Defense>>& getDefenses() { return defenses; }
   std::unique_ptr<sf::RectangleShape> createChemin(Lieu* destination) const;
+  void recevoirDegats(int amount);
 
 
 };

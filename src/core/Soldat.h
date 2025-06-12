@@ -14,11 +14,14 @@ class Soldat : public Defense {
   bool enMarche = false;
   float time = 0.f;
   Champ* proprio;
-  int degats = 3;
+  int degats = -5;
+  Troupe* cible = nullptr;
+  bool attaqueBase = false;
 
  public:
   Soldat(sf::Vector2f pos, Base* base, Champ* p);
   void draw(sf::RenderWindow& window) const override;
   void attaquer(Troupe* cible) override;
+  void attaquerBase();
   void updateAttaque(sf::Time elapsedTime, TroupeManager& TM) override;
 };

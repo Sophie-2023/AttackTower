@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <map>
-	<base x="500" y="350" />
+	<base x="500" y="350" vie="200" />
 	<champ x="800" y="300" taille="10" vie="100">
 		<defense type="tour" x="50" y="50"/>
 	</champ>

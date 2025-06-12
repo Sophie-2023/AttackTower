@@ -6,7 +6,6 @@
 
 Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
       taille(node.attribute("taille").as_int()),
-      vie(node.attribute("vie").as_int()),
       texture("res/champBle.jpg"),
       sprite(texture),
       base(b){
@@ -31,6 +30,11 @@ void Champ::draw(sf::RenderWindow& window) const {
       defense->draw(window);
     }
   }
+  for (auto& soldat : soldatsEnRoute) {
+    if (soldat) {
+      soldat->draw(window);
+    }
+  }
 }
 
 sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
@@ -45,6 +49,11 @@ void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
         }
         def->update(elapsedTime, TM);
 
+      }
+    }
+    for (auto& soldat : soldatsEnRoute) {
+      if (soldat) {
+        soldat->update(elapsedTime, TM);
       }
     }
     //spawn des soldats
@@ -67,7 +76,7 @@ void Champ::addDefense(const std::string& type, float posx,float posy) {
 
 }
 
-std::unique_ptr<Defense> Champ::removeSoldat(Defense* soldat) {
+void Champ::moveToSoldatEnRoute(const Defense* soldat) {
   auto it = std::find_if(defenses.begin(), defenses.end(),
                          [soldat](const std::unique_ptr<Defense>& s) {
                            return s.get() == soldat;
@@ -75,6 +84,17 @@ std::unique_ptr<Defense> Champ::removeSoldat(Defense* soldat) {
   if (it != defenses.end()) {
     std::unique_ptr<Defense> removedSoldat = std::move(*it);
     defenses.erase(it);
+    soldatsEnRoute.push_back(std::move(removedSoldat));
+  }
+}
+std::unique_ptr<Defense> Champ::removeSoldatEnRoute(Defense* soldat) {
+  auto it = std::find_if(soldatsEnRoute.begin(), soldatsEnRoute.end(),
+                         [soldat](const std::unique_ptr<Defense>& s) {
+                           return s.get() == soldat;
+                         });
+  if (it != soldatsEnRoute.end()) {
+    std::unique_ptr<Defense> removedSoldat = std::move(*it);
+    soldatsEnRoute.erase(it);
     return std::move(removedSoldat);
   }
   return nullptr;
@@ -94,6 +114,5 @@ void Champ::addSoldat() {
   defenses.push_back(std::make_unique<Soldat>(sf::Vector2f(position.x+x,position.y+y), base, this));
 }
 
-bool Champ::getUnderAttack() { return underAttack; }
 
-//void takeDamage(int d);
+bool Champ::getUnderAttack() { return underAttack; }
