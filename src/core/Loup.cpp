@@ -5,8 +5,9 @@
 #include "EtatExploitation.h"
 
 Loup::Loup(Lieu* lieu) 
-    : Troupe(100, 100, 100.0f), texture("res/loup.png"), sprite(texture) 
-{ 
+    : Troupe(100, 100, 100.0f, 20, 30.f),  // pv, pvMax, vitesse, degats, rayonDegats
+      texture("res/loup.png"),
+      sprite(texture) { 
   lieuActuel = lieu;
   decalagePosition = {65.f, 0.f};
   position = lieuActuel->getPosition();

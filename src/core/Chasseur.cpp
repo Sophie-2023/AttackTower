@@ -7,7 +7,7 @@
 
 
 Chasseur::Chasseur(Lieu* lieu) 
-	: Troupe(50, 50, 50.f),
+	: Troupe(50, 50, 50.f, 20, 70.f), // pv, pvMax, vitesse, degats, rayonDegats
       texture("res/chasseur.png"),
       sprite(texture)  // pv = 50; vitesse = 50
 { 

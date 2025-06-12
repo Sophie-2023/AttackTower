@@ -15,6 +15,8 @@ protected:
 	float vitesse;
     std::unique_ptr<State> etat;
     sf::Vector2f position;
+    int degats;         // Dégâts infligés par la troupe
+    float rayonDegats;    // Rayon de la troupe pour les attaques
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
     bool isInBase;
     sf::Vector2f decalagePosition;  // Décalage de la position pour le sprite
@@ -22,7 +24,7 @@ protected:
     Lieu* lieuActuel = nullptr;
 
 public:
-    Troupe(int pv_, int pvMax_, float vitesse_);
+    Troupe(int pv_, int pvMax_, float vitesse_, int degats_, float rayonDegats_);
 	virtual ~Troupe() = default;
     virtual void update(sf::Time elapsedTime) = 0;
     virtual void draw(sf::RenderWindow& window) const = 0;
@@ -36,8 +38,11 @@ public:
     int getPv() const { return pv; }    
     State* getEtat() const;
     bool getIsInBase() const;
+    int getDegats() const { return degats; }
+    float getRayonDegats() const { return rayonDegats; }
     virtual sf::FloatRect getBounds() const = 0;
     virtual sf::Sprite& getSprite() = 0;
+
     virtual void setSelected(bool newBool);
     void setPosition(sf::Vector2f newPos) { position = newPos; }
     void setIsInBase(bool newBool);

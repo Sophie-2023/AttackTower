@@ -3,11 +3,13 @@
 #include "Lieu.h"
 
 
-Troupe::Troupe(int pv_, int pvMax_, float vitesse_)
+Troupe::Troupe(int pv_, int pvMax_, float vitesse_, int degats_, float rayonDegats_)
     : pv(pv_),
       pvMax(pvMax_),
       vitesse(vitesse_),
       position({0.f, 0.f}),
+      degats(degats_),
+      rayonDegats(rayonDegats_),
       selected(false),
       isInBase(true),
       decalagePosition({0.f, 0.f}) 

@@ -14,4 +14,5 @@ class Chasseur : public Troupe {
  private:
   sf::Texture texture;
   sf::Sprite sprite;
+
 };
