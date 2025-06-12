@@ -10,7 +10,7 @@ TourDeGuet::TourDeGuet(float x, float y)
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.15f, 0.15f});
   sprite.setPosition(position);
-
+  barrePv.setPosition({position.x, position.y - 40.f});
 }
 
   #include <SFML/System/Angle.hpp> // Include necessary header for sf::Angle
@@ -38,6 +38,7 @@ void TourDeGuet::draw(sf::RenderWindow& window) const {
   std.setPosition(sf::Vector2f(position.x - 200, position.y - 200));
   //window.draw(std);
   window.draw(sprite);
+  window.draw(barrePv);
   if (attaqueEnCours) {
     window.draw(bullet);  }
   };

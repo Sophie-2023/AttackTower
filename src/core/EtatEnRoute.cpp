@@ -47,7 +47,7 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
       troupe.changerEtat(std::make_unique<EtatExploitation>(destination, troupeManager, window));
       //std::cout << "Arrivée à destination : foret\n";
     } else {
-      troupe.changerEtat(nullptr);
+      troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));
       troupe.setIsInBase(true);
       //std::cout << "Arrivée à destination : base\n";
     }

@@ -16,6 +16,8 @@ CanonABle::CanonABle(float x, float y)
   effetExplosion.setTexture(&effetExplosionTexture);
   effetExplosion.setRadius(rayonDegat);
   effetExplosion.setOrigin(effetExplosion.getLocalBounds().getCenter());
+
+  barrePv.setPosition({position.x, position.y - 30.f});
 }
 
 
@@ -32,6 +34,7 @@ void CanonABle::attaquer(Troupe* c) {
 void CanonABle::draw(sf::RenderWindow& window) const {
   // Dessine la tour de guet
   window.draw(sprite);
+  window.draw(barrePv);
   if (attaqueEnCours) {
     window.draw(bullet);
   }

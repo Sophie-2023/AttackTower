@@ -27,6 +27,20 @@ void Carte::update(sf::Time elapsedTime, TroupeManager& TM) {
   for (auto& lieu : lieux) {
     lieu->update(elapsedTime,  TM);
   }
+
+  // On regarde si une des defenses est détruite pour l'enlever de la liste des lieux
+  for (auto& lieu : lieux) {
+    for (auto it = lieu->getDefenses().begin(); it != lieu->getDefenses().end();) {
+      if (*it && (*it)->getPv() <= 0) {
+        std::cout << "Defense supprimée" << std::endl;
+        // Libère la mémoire et enlève du vecteur
+        it = lieu->getDefenses().erase(it);
+      } else {
+        ++it;  // Passe à la suivante
+      }
+    }
+  }
+
 }
 
 void Carte::draw(sf::RenderWindow& window) const {

@@ -10,17 +10,20 @@ class Defense {
   Troupe* cible;
   float timer;
   float cadence;
-  int pv;
 
- protected:
- bool attaqueEnCours = false;
+protected:
+  bool attaqueEnCours = false;
   bool underAttack = false;
+  int pv;
+  int pvMax;
+  sf::RectangleShape barrePv;
 
 public:
   sf::Vector2f position;
  
 public:
   Defense(float r, float c, sf::Vector2f pos);
+ virtual ~Defense() = default;
   void update(sf::Time elapsedTime, TroupeManager& TM);
   virtual void draw(sf::RenderWindow& window) const = 0;
   virtual void attaquer(Troupe* cible) = 0;

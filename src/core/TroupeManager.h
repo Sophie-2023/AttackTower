@@ -16,7 +16,7 @@ class TroupeManager {
   Carte* carte = nullptr;  // Pointeur vers la carte associée
 
  public:
-  void initializeTroupe();
+  void initializeTroupe(sf::RenderWindow& window);
   std::unique_ptr<Troupe> creerTroupe(const std::string& type, Lieu* lieu);
   void ajouterTroupe(std::unique_ptr<Troupe> troupe);
   void supprimerTroupe(std::unique_ptr<Troupe> troupe);

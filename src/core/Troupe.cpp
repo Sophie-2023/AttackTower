@@ -3,25 +3,26 @@
 #include "Lieu.h"
 
 
-Troupe::Troupe(int pv_, int pvMax_, float vitesse_, int degats_, float rayonDegats_)
+Troupe::Troupe(int pv_, int pvMax_, float vitesse_, int degats_, float rayonDegats_, sf::Time rechargeCombat_)
     : pv(pv_),
       pvMax(pvMax_),
       vitesse(vitesse_),
       position({0.f, 0.f}),
       degats(degats_),
       rayonDegats(rayonDegats_),
+      rechargeCombat(rechargeCombat_),
       selected(false),
       isInBase(true),
       decalagePosition({0.f, 0.f}) 
 {
   barrePv.setSize({50.f, 5.f});
   barrePv.setFillColor(sf::Color::Red);
+  barrePv.setOrigin(barrePv.getLocalBounds().getCenter());
 }
 
 void Troupe::recevoirDegats(int amount) {
   pv += amount;
   if (pv <= 0) pv = 0;
-  std::cout << "PV: " << pv << std::endl;
 
   // Mettre à jour la barre de vie
   float proportion = static_cast<float>(pv) / static_cast<float>(pvMax);
