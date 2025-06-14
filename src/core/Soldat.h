@@ -11,11 +11,13 @@ class Soldat : public Defense {
   sf::Texture texture;
   sf::Sprite sprite;
   Base* base;  // Base où va le soldat
-  bool enMarche = false;
+  
   float time = 0.f;
   Champ* proprio;
   int degats = -5;
   Troupe* cible = nullptr;
+
+  bool enMarche = false;
   bool attaqueBase = false;
 
  public:
