@@ -43,6 +43,14 @@ sf::FloatRect Chasseur::getBounds() const {
 
 sf::Sprite& Chasseur::getSprite() { return sprite; }
 
+void Chasseur::flip(sf::Vector2f direction) {
+  if (direction.x < 0) {
+    sprite.setScale({-std::abs(sprite.getScale().x), sprite.getScale().y});
+  } else if (direction.x > 0) {
+    sprite.setScale({std::abs(sprite.getScale().x), sprite.getScale().y});
+  }
+}
+
 void Chasseur::setSelected(bool newBool) { 
   Troupe::setSelected(newBool);
   if (newBool) {

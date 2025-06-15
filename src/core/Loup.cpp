@@ -40,6 +40,14 @@ void Loup::draw(sf::RenderWindow& window) const {
 sf::FloatRect Loup::getBounds() const { return sprite.getGlobalBounds(); }
 sf::Sprite& Loup::getSprite() { return sprite; }
 
+void Loup::flip(sf::Vector2f direction) {
+  if (direction.x < 0) {
+    sprite.setScale({-std::abs(sprite.getScale().x), sprite.getScale().y});
+  } else if (direction.x > 0) {
+    sprite.setScale({std::abs(sprite.getScale().x), sprite.getScale().y});
+  }
+}
+
 void Loup::setSelected(bool newBool) {
   Troupe::setSelected(newBool);
   if (newBool) {

@@ -42,19 +42,17 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
 
     if (auto* champ = dynamic_cast<Champ*>(destination)) {
       troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));
-      //std::cout << "Arrivée à destination : champ\n";
     } else if (auto* foret = dynamic_cast<Foret*>(destination)) {
       troupe.changerEtat(std::make_unique<EtatExploitation>(destination, troupeManager, window));
-      //std::cout << "Arrivée à destination : foret\n";
     } else {
       troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));
       troupe.setIsInBase(true);
-      //std::cout << "Arrivée à destination : base\n";
     }
     return;
   }
 
   sf::Vector2f direction = normaliser(delta) * troupe.getVitesse();
+  troupe.flip(direction);
   troupe.getSprite().move(direction * elapsedTime.asSeconds());
   troupe.setPosition(currentPos + direction * elapsedTime.asSeconds());
 }

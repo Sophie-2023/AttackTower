@@ -7,7 +7,6 @@ EtatCombat::EtatCombat(TroupeManager* tm, sf::RenderWindow* win)
     : State(tm, win) 
 {
   cible = nullptr;
-  std::cout << "etat de combat initialise" << std::endl;
 }
 
 void EtatCombat::agir(Troupe& troupe, sf::Time elapsedTime) {
@@ -35,6 +34,7 @@ void EtatCombat::agir(Troupe& troupe, sf::Time elapsedTime) {
       return;  // On sort de la fonction pour éviter de bouger la troupe
     } else {
       sf::Vector2f direction = delta.normalized() * troupe.getVitesse();
+      troupe.flip(direction);
       troupe.getSprite().move(direction * elapsedTime.asSeconds());
       troupe.setPosition(currentPos + direction * elapsedTime.asSeconds());
     }

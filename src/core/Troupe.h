@@ -37,6 +37,7 @@ public:
     virtual void updateAttaque(sf::Time elapsedTime) = 0;
     void recevoirDegats(int amount);
     void changerEtat(std::unique_ptr<State> nouvelEtat);
+    virtual void flip(sf::Vector2f direction) = 0;
 
     sf::Vector2f getPosition() const;
     sf::Vector2f getDecalagePosition() const { return decalagePosition; }

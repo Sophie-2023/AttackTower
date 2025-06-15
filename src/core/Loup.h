@@ -13,6 +13,7 @@ class Loup : public Troupe {
   sf::FloatRect getBounds() const override;
   sf::Sprite& getSprite() override;
   void setSelected(bool newBool) override;
+  void flip(sf::Vector2f direction) override;
 
  private:
   sf::Texture texture;
