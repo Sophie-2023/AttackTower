@@ -18,4 +18,9 @@ class Loup : public Troupe {
   sf::Texture texture;
   sf::Sprite sprite;
 
+  sf::Texture effetDegatTexture;
+  sf::Sprite effetDegat;
+  sf::Time tempsEffet = sf::Time::Zero;
+  sf::Time dureeEffet = sf::seconds(0.3f);
+
 };

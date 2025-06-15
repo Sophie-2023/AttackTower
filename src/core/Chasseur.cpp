@@ -10,7 +10,9 @@
 Chasseur::Chasseur(Lieu* lieu) 
 	: Troupe(50, 50, 50.f, 10, 70.f, sf::seconds(2.f)),  // pv, pvMax, vitesse, degats, rayonDegats, rechargeCombat
       texture("res/chasseur.png"),
-      sprite(texture)
+      sprite(texture),
+      bulletTexture("res/bullet.png"),
+      bullet(bulletTexture)
 { 
     lieuActuel = lieu;
 	position = lieuActuel->getPosition();
@@ -26,6 +28,9 @@ Chasseur::Chasseur(Lieu* lieu)
 void Chasseur::draw(sf::RenderWindow& window) const { 
   window.draw(sprite);
   window.draw(barrePv);
+  if (attaqueEnCours) {
+    window.draw(bullet);
+  }
 
   if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
     exploitation->draw(window);
@@ -47,17 +52,40 @@ void Chasseur::setSelected(bool newBool) {
   }
 }
 
-void Chasseur::attaquer(Defense* cible) {
-  if (cible) {
-    cible->recevoirDegats(-degats);
-    //std::cout << "Chasseur attaque la defense, PV restants: " << cible->getPv()
-    //          << std::endl;
-  }
+void Chasseur::attaquer(Defense* cible_) {
+  cible = cible_;
+  attaqueEnCours = true;
+  std::cout << "attaque du chasseur" << std::endl;
+  bullet.setPosition(position);
+  bullet.setScale(sf::Vector2f(0.01f, 0.01f));  // Ajuste la taille de la balle
+  bullet.setOrigin(bullet.getLocalBounds().getCenter());
+  bullet.setColor(sf::Color::Blue);
+
+  // Convert float to sf::Angle using sf::radians
+  sf::Angle rotationAngle =
+      sf::radians(std::atan2(cible->getPosition().y - position.y,
+                             cible->getPosition().x - position.x));
+
+  bullet.setRotation(
+      rotationAngle);  // Définit la rotation de la balle vers la cible
 }
 
 void Chasseur::updateAttaque(sf::Time elapsedTime) {
-  // Pas d'attaque pour le chasseur, mais on peut implémenter une logique si
-  // nécessaire
+  if (attaqueEnCours) {
+    sf::Vector2f direction =
+        (cible->getPosition() - bullet.getPosition()).normalized() *
+        bulletSpeed;
+    bullet.move(direction * elapsedTime.asSeconds());
+    if ((bullet.getPosition() - cible->getPosition()).length() < 3) {
+      if (cible) {
+        cible->recevoirDegats(-degats);
+        //std::cout << "Chasseur attaque la cible, PV restants: "
+        //          << cible->getPv() << std::endl;
+      }
+      attaqueEnCours = false;
+      cible = nullptr;
+    }
+  }
 }
 
 void Chasseur::update(sf::Time elapsedTime) 
@@ -66,4 +94,5 @@ void Chasseur::update(sf::Time elapsedTime)
     if (etat) {
         etat->agir(*this, elapsedTime);
     }
+    updateAttaque(elapsedTime);
 }

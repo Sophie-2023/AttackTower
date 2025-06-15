@@ -17,4 +17,9 @@ class Chasseur : public Troupe {
   sf::Texture texture;
   sf::Sprite sprite;
 
+  sf::Texture bulletTexture;
+  sf::Sprite bullet;
+  float bulletSpeed = 300;  // Vitesse de la balle
+  Defense* cible = nullptr;
+
 };

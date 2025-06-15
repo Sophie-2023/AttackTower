@@ -20,6 +20,7 @@ protected:
     int degats;         // Dégâts infligés par la troupe
     float rayonDegats;    // Rayon de la troupe pour les attaques
     sf::Time rechargeCombat;  // Temps de recharge entre les attaques
+    bool attaqueEnCours = false;
 
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
     bool isInBase;
