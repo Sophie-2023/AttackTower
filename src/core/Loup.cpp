@@ -69,7 +69,6 @@ void Loup::attaquer(Defense* cible) {
   attaqueEnCours = true;
   tempsEffet = sf::Time::Zero;
   if (cible) {
-    std::cout << "Loup attaque défense" << std::endl;
     cible->recevoirDegats(-degats);
   } else {
     lieuActuel->recevoirDegats(-degats);
