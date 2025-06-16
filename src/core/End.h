@@ -5,8 +5,11 @@ class End {
   sf::Font font;
   sf::Text text;
 
-    sf::Texture backgroundTexture;
+  sf::Texture backgroundTexture;
   sf::RectangleShape background;
+
+  sf::RectangleShape button;
+  sf::Text buttonText;
 
  public:
   explicit End();

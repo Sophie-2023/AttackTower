@@ -18,10 +18,15 @@ class Loup : public Troupe {
  private:
   sf::Texture texture;
   sf::Sprite sprite;
+  std::vector<sf::Texture> texturesCourse;
+  std::vector<sf::Texture> texturesAttaque;
 
   sf::Texture effetDegatTexture;
   sf::Sprite effetDegat;
   sf::Time tempsEffet = sf::Time::Zero;
-  sf::Time dureeEffet = sf::seconds(0.3f);
+  sf::Time dureeEffet = sf::seconds(0.42f);
+
+  sf::Time tempsSprite = sf::Time::Zero;
+  int textureIndex = 0;
 
 };

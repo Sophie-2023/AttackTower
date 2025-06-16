@@ -1,8 +1,8 @@
 #include "End.h"
 
-End::End() : font("res/Bobatime.ttf"), text(font) {
+End::End() : font("res/Bobatime.ttf"), text(font) , buttonText(font) {
   background.setSize(sf::Vector2f(1000, 700));
-  text.setPosition(sf::Vector2f(500, 350));
+  text.setPosition(sf::Vector2f(450, 400));
   text.setCharacterSize(100);
 }
 
