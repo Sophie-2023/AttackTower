@@ -2,8 +2,8 @@
 #include <iostream>
 
 
- Defense::Defense(float r, float c, sf::Vector2f pos)
-    : rayon(r), cadence(c), cible(nullptr), timer(0.0f),position(pos), pv(50), pvMax(50) 
+ Defense::Defense(float r, float c, sf::Vector2f pos,int pv_)
+    : rayon(r), cadence(c), cible(nullptr), timer(0.0f),position(pos), pv(pv_), pvMax(pv_) 
  {
    barrePv.setSize({50.f, 5.f});
    barrePv.setFillColor(sf::Color::Magenta);

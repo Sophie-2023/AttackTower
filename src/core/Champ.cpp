@@ -11,8 +11,13 @@ Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
       base(b){
 
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
-  sprite.setScale({0.01f * taille, 0.01f * taille});
+  sprite.setScale({0.05f * taille, 0.05f * taille});
   sprite.setPosition(position);
+  barrePv.setFillColor(sf::Color::Yellow);
+  barrePv.setSize({25.f*taille, 5.f});
+  prop = sf::Vector2f(25.f * taille, 5.f);
+  barrePv.setOrigin(barrePv.getLocalBounds().getCenter());
+  barrePv.setPosition(sf::Vector2f(position.x, position.y - sprite.getGlobalBounds().size.y / 2 - 20));
 
   for (auto& defense : node.children("defense")) {
     std::string type = defense.attribute("type").as_string();
@@ -24,6 +29,7 @@ Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
 }
   
 void Champ::draw(sf::RenderWindow& window) const {
+
   window.draw(sprite);
   for (auto& defense : defenses) {
     if (defense) {
@@ -35,12 +41,14 @@ void Champ::draw(sf::RenderWindow& window) const {
       soldat->draw(window);
     }
   }
+  window.draw(barrePv);
 }
 
 sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
 
 
 void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
+  troupeManager = &TM;
   underAttack = false;
     for (auto& def : defenses) {
       if (def) {
@@ -56,11 +64,13 @@ void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
         soldat->update(elapsedTime, TM);
       }
     }
-    //spawn des soldats
-    timeSinceLastSpawn += elapsedTime.asSeconds();
-    if (timeSinceLastSpawn >= spawnInterval) {
+    if (isAlive()) {
+      // spawn des soldats
+      timeSinceLastSpawn += elapsedTime.asSeconds();
+      if (timeSinceLastSpawn >= spawnInterval) {
         addSoldat();
         timeSinceLastSpawn = 0.0f;
+      }
     }
   }
 
@@ -116,3 +126,13 @@ void Champ::addSoldat() {
 
 
 bool Champ::getUnderAttack() { return underAttack; }
+
+void Champ::death() {
+  for (int i =0;i<taille;i++) {
+    std::unique_ptr<Troupe> newTroupe =
+        troupeManager->creerTroupe("chasseur", this);
+    newTroupe->setIsInBase(false);
+    troupeManager->ajouterTroupe(std::move(newTroupe));
+  }
+
+}

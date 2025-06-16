@@ -22,7 +22,7 @@ public:
   sf::Vector2f position;
  
 public:
-  Defense(float r, float c, sf::Vector2f pos);
+  Defense(float r, float c, sf::Vector2f pos,int pv_);
  virtual ~Defense() = default;
   void update(sf::Time elapsedTime, TroupeManager& TM);
   virtual void draw(sf::RenderWindow& window) const = 0;

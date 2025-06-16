@@ -2,15 +2,15 @@
 #include <iostream>
 
 TourDeGuet::TourDeGuet(float x, float y)
-    : Defense(400, 5, sf::Vector2f(x, y)),
+    : Defense(200, 5, sf::Vector2f(x, y),50),
       texture("res/tourDeGuet.png"),
       sprite(texture),
       bulletTexture("res/bullet.png"),
       bullet(bulletTexture) {
-  sprite.setOrigin(sprite.getLocalBounds().getCenter());
+  sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().getCenter().x,sprite.getLocalBounds().size.y));
   sprite.setScale({0.15f, 0.15f});
   sprite.setPosition(position);
-  barrePv.setPosition({position.x, position.y - 40.f});
+  barrePv.setPosition({position.x, position.y - 75.f});
 }
 
   #include <SFML/System/Angle.hpp> // Include necessary header for sf::Angle

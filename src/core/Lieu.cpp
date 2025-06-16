@@ -37,11 +37,16 @@ std::unique_ptr<sf::RectangleShape> Lieu::createChemin(Lieu* destination) const 
   }
 void Lieu::recevoirDegats(int amount) {
   pv += amount;
-  if (pv <= 0) pv = 0;
+  if (pv <= 0) {
+    pv = 0;
+    alive = false;
+    death();
+  }
   if (pv > pvMax) pv = pvMax;
 
   float proportion = static_cast<float>(pv) / static_cast<float>(pvMax);
   proportion = std::clamp(proportion, 0.f, 1.f);  // éviter valeur négative
   std::cout << "Points de vie: " << pv  << std::endl;
-  //barrePv.setSize({50.f * proportion, 5.f});
+  barrePv.setSize({prop.x * proportion, prop.y});
+
 }

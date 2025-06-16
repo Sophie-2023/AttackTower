@@ -6,7 +6,6 @@ class Champ;
 
 class Soldat : public Defense {
  private:
-  int pv; // Il y a déjà pv dans Defense ! A enlever quand on initialisera les pv des défenses de façon plus propre
   float vitesse;
   sf::Texture texture;
   sf::Sprite sprite;
@@ -19,6 +18,7 @@ class Soldat : public Defense {
 
   bool enMarche = false;
   bool attaqueBase = false;
+  bool dansEnRoute = false;
 
  public:
   Soldat(sf::Vector2f pos, Base* base, Champ* p);

@@ -16,4 +16,5 @@ class Base : public Lieu{
   void draw(sf::RenderWindow& window) const override;
    sf::FloatRect getBounds() const override;
   void addSoldat(std::unique_ptr<Defense> soldat);
+   void death() override;
 };

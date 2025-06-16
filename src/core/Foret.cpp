@@ -24,3 +24,7 @@ void Foret::rotateTo(const Lieu* target) {
   float angleDeg = std::atan2(delta.y, delta.x) * 180.f / 3.14159265f;
   sprite.setRotation(sf::degrees(angleDeg));
 }
+
+void Foret::death() {
+  // No specific death logic for Foret
+}

@@ -5,8 +5,7 @@
 
 Soldat::Soldat(sf::Vector2f pos, Base* base_, Champ* p)
     : 
-  Defense(200, 3, pos),
-  pv(40), 
+  Defense(300, 3, pos,20), 
   vitesse(15),
   texture("res/fermier.png"),
   sprite(texture),
@@ -44,51 +43,44 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
     position += direction * elapsedTime.asSeconds();
     sprite.move(direction * elapsedTime.asSeconds());
     barrePv.setPosition({position.x, position.y - 45.f});
-    if (proprio != nullptr && !proprio->getBounds().contains(position)) {
+
+    //si on sort du champ
+    if (!dansEnRoute && proprio != nullptr && !proprio->getBounds().contains(position)) {
       proprio->moveToSoldatEnRoute(this);
+      dansEnRoute = true;
+    }
+
+    // si on arrive a la base
+    if (proprio != nullptr && (position - base->getPosition()).length() <
+                                  (base->getBounds().size.x / 2 + 50)) {
+      base->addSoldat(proprio->removeSoldatEnRoute(this));
+      proprio = nullptr;
+      enMarche = false;
     }
   }
-  if ((position - base->getPosition()).length() <
-          (base->getBounds().size.x/2 +50) &&
-      proprio != nullptr) {
-    base->addSoldat(proprio->removeSoldatEnRoute(this));
-    proprio = nullptr;
-    enMarche = false;
-  }
-  if (attaqueEnCours) {
-    if (enMarche) {
-      attaqueEnCours = false;
-    } 
-    else {
-      if ((cible->getPosition() - base->getPosition()).length() <
-              base->getBounds().size.x / 2 + 50 ||
-          (proprio != nullptr &&
-           (cible->getPosition() - proprio->getPosition()).length() <
-               proprio->getBounds().size.x / 2 + 50)) {
+  else if (attaqueEnCours) {
+    if ((cible->getPosition() - base->getPosition()).length() < base->getBounds().size.x / 2 + 50 ||
+        (proprio != nullptr && (cible->getPosition() - proprio->getPosition()).length() < proprio->getBounds().size.x / 2 + 50)) {
         if ((cible->getPosition() - position).length() < 5) {
           cible->recevoirDegats(degats);
           std::cout << "attaque du fermier" << std::endl;
           attaqueEnCours = false;
-        } 
-        else {
+        } else {
           sf::Vector2f direction =
               (cible->getPosition() - position).normalized() * vitesse;
           position += direction * elapsedTime.asSeconds();
           sprite.move(direction * elapsedTime.asSeconds());
           barrePv.setPosition({position.x, position.y - 45.f});
         }
-        
-      }
-    attaqueBase = false;
+        attaqueBase = false;
+    } else {
+      underAttack = false;
     }
   }
-  if (proprio == nullptr) {
-    if (!underAttack) {
+  if (proprio == nullptr && !underAttack) {
       attaquerBase();
     }
-  }
-  if (attaqueBase) {
-    if (base) {
+  if (attaqueBase && base->isAlive()) {
       if ((base->getPosition() - position).length() < 5) {
         if (time >= 5) {
           time = 0;
@@ -103,7 +95,6 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
         sprite.move(direction * elapsedTime.asSeconds());
         barrePv.setPosition({position.x, position.y - 45.f});
       }
-    }
   }
 }
 

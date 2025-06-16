@@ -3,21 +3,21 @@
 #include <iostream>
 
 CanonABle::CanonABle(float x, float y)
-    : Defense(400, 10, sf::Vector2f(x, y)),
+    : Defense(150, 10, sf::Vector2f(x, y),60),
       texture("res/canon.png"),
       sprite(texture),
       bulletTexture("res/bouletBle.png"),
       bullet(bulletTexture),
       effetExplosionTexture("res/explosion.png")
 {
-  sprite.setOrigin(sprite.getLocalBounds().getCenter());
-  sprite.setScale({0.1f, 0.1f});
+  sprite.setOrigin(sf::Vector2f(sprite.getLocalBounds().getCenter().x,sprite.getLocalBounds().size.y));
+  sprite.setScale({0.13f, 0.13f});
   sprite.setPosition(position);
   effetExplosion.setTexture(&effetExplosionTexture);
   effetExplosion.setRadius(rayonDegat);
   effetExplosion.setOrigin(effetExplosion.getLocalBounds().getCenter());
 
-  barrePv.setPosition({position.x, position.y - 30.f});
+  barrePv.setPosition({position.x, position.y - 55.f});
 }
 
 

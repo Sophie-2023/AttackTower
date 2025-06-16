@@ -13,4 +13,5 @@ class Foret : public Lieu {
   void update(sf::Time elapsedTime, TroupeManager& TM) override;
   void rotateTo(const Lieu* target);
   sf::FloatRect getBounds() const override;
+  void death() override;
 };

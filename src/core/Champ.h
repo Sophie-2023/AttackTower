@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Lieu.h"
 #include "Soldat.h"
+#include "TroupeManager.h"
 
 
 class Champ : public Lieu {
@@ -14,6 +15,7 @@ class Champ : public Lieu {
   float timeSinceLastSpawn=0;
   float spawnInterval = 15.0f;  // Intervalle de spawn en secondes
   bool underAttack = false;
+  TroupeManager* troupeManager = nullptr;
 
   std::vector<std::unique_ptr<Defense>> soldatsEnRoute;
 
@@ -30,4 +32,5 @@ class Champ : public Lieu {
   void addSoldat();
   void moveToSoldatEnRoute(const Defense* soldat);
   bool getUnderAttack();
+  void death() override;
 };
