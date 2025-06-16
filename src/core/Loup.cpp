@@ -58,18 +58,27 @@ void Loup::setSelected(bool newBool) {
 }
 
 void Loup::attaquer(Defense* cible) {
+  sf::Vector2f ciblePosition;
   if (cible) {
-    effetDegat.setPosition(cible->getPosition());
-    attaqueEnCours = true;
-    tempsEffet = sf::Time::Zero;
-    cible->recevoirDegats(-degats);
-    //std::cout << "Loup attaque la defense, PV restants: " << cible->getPv() << std::endl;
+    ciblePosition = cible->getPosition();
+  } else {
+    ciblePosition = lieuActuel->getPosition();
   }
+
+  effetDegat.setPosition(ciblePosition);
+  attaqueEnCours = true;
+  tempsEffet = sf::Time::Zero;
+  if (cible) {
+    std::cout << "Loup attaque défense" << std::endl;
+    cible->recevoirDegats(-degats);
+  } else {
+    lieuActuel->recevoirDegats(-degats);
+  }
+  attaqueChamp = false;
 }
 
 void Loup::updateAttaque(sf::Time elapsedTime) {
-  // Pas d'attaque pour le loup, mais on peut implémenter une logique si
-  // nécessaire
+
   if (attaqueEnCours) {
     tempsEffet += elapsedTime;
     if (tempsEffet >= dureeEffet) {
@@ -84,11 +93,5 @@ void Loup::update(sf::Time elapsedTime) {
       etat->agir(*this, elapsedTime);
     }
     updateAttaque(elapsedTime);
-
-    /*
-    if (lieuActuel->getDefenses().empty()) {
-      std::cout << "Aucune defense dans le lieu actuel." << std::endl;
-    }
-    */
 
 }

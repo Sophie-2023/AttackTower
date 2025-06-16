@@ -63,16 +63,19 @@ void Chasseur::setSelected(bool newBool) {
 void Chasseur::attaquer(Defense* cible_) {
   cible = cible_;
   attaqueEnCours = true;
-  std::cout << "attaque du chasseur" << std::endl;
   bullet.setPosition(position);
   bullet.setScale(sf::Vector2f(0.01f, 0.01f));  // Ajuste la taille de la balle
   bullet.setOrigin(bullet.getLocalBounds().getCenter());
   bullet.setColor(sf::Color::Blue);
 
-  // Convert float to sf::Angle using sf::radians
-  sf::Angle rotationAngle =
-      sf::radians(std::atan2(cible->getPosition().y - position.y,
-                             cible->getPosition().x - position.x));
+  sf::Angle rotationAngle;
+  if (cible) { // Si la cible est une défense
+    rotationAngle = sf::radians(std::atan2(cible->getPosition().y - position.y, cible->getPosition().x - position.x));
+  } else { // Si on attaque un champ
+    rotationAngle =
+        sf::radians(std::atan2(lieuActuel->getPosition().y - position.y,
+                               lieuActuel->getPosition().x - position.x));
+  }
 
   bullet.setRotation(
       rotationAngle);  // Définit la rotation de la balle vers la cible
@@ -80,18 +83,23 @@ void Chasseur::attaquer(Defense* cible_) {
 
 void Chasseur::updateAttaque(sf::Time elapsedTime) {
   if (attaqueEnCours) {
-    sf::Vector2f direction =
-        (cible->getPosition() - bullet.getPosition()).normalized() *
-        bulletSpeed;
+    sf::Vector2f ciblePosition;
+    if (cible) {
+      ciblePosition = cible->getPosition();
+    } else {
+      ciblePosition = lieuActuel->getPosition();
+    }   
+    sf::Vector2f direction = (ciblePosition - bullet.getPosition()).normalized() * bulletSpeed;
     bullet.move(direction * elapsedTime.asSeconds());
-    if ((bullet.getPosition() - cible->getPosition()).length() < 3) {
+    if ((bullet.getPosition() - ciblePosition).length() < 3) {
       if (cible) {
         cible->recevoirDegats(-degats);
-        //std::cout << "Chasseur attaque la cible, PV restants: "
-        //          << cible->getPv() << std::endl;
+      } else {
+        lieuActuel->recevoirDegats(-degats);
       }
       attaqueEnCours = false;
       cible = nullptr;
+      attaqueChamp = false;
     }
   }
 }

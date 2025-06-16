@@ -21,6 +21,7 @@ protected:
     float rayonDegats;    // Rayon de la troupe pour les attaques
     sf::Time rechargeCombat;  // Temps de recharge entre les attaques
     bool attaqueEnCours = false;
+    bool attaqueChamp = false;
 
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
     bool isInBase;
@@ -49,6 +50,7 @@ public:
     int getDegats() const { return degats; }
     float getRayonDegats() const { return rayonDegats; }
     sf::Time getRechargeCombat() const { return rechargeCombat; }
+    bool getAttaqueChamp() const { return attaqueChamp; }
     virtual sf::FloatRect getBounds() const = 0;
     virtual sf::Sprite& getSprite() = 0;
 
@@ -56,6 +58,7 @@ public:
     void setPosition(sf::Vector2f newPos) { position = newPos; }
     void setIsInBase(bool newBool);
     void setLieuActuel(Lieu* lieu);
+    void setAttaqueChamp(bool newBool) { attaqueChamp = newBool; }
 
   
 };

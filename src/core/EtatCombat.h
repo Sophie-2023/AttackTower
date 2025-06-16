@@ -6,7 +6,8 @@
 
 class EtatCombat : public State {
 
-  Defense* cible;
+  Defense* cibleDefense;
+  sf::Vector2f ciblePosition;
   sf::Time tempsEcoule = sf::Time::Zero; // Temps écoulé depuis la dernière attaque
 
  public:
