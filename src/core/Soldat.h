@@ -13,7 +13,7 @@ class Soldat : public Defense {
   
   float time = 0.f;
   Champ* proprio;
-  int degats = -5;
+  int degats = -8;
   Troupe* cible = nullptr;
 
   bool enMarche = false;
@@ -26,4 +26,6 @@ class Soldat : public Defense {
   void attaquer(Troupe* cible) override;
   void attaquerBase();
   void updateAttaque(sf::Time elapsedTime, TroupeManager& TM) override;
+  void flip(sf::Vector2f direction);
+
 };

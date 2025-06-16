@@ -3,7 +3,7 @@
 #include <iostream>
 
 CanonABle::CanonABle(float x, float y)
-    : Defense(150, 10, sf::Vector2f(x, y),60),
+    : Defense(150, 10, sf::Vector2f(x, y),80),
       texture("res/canon.png"),
       sprite(texture),
       bulletTexture("res/bouletBle.png"),

@@ -1,8 +1,9 @@
 #include "Base.h"
 #include <iostream>
+ #include "Carte.h"
 
-Base::Base(const pugi::xml_node& node)
-    : Lieu(node), texture("res/base.png"), sprite(texture) {
+Base::Base(const pugi::xml_node& node,Carte* carte_)
+    : Lieu(node), texture("res/base.png"), sprite(texture), carte(carte_) {
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
   sprite.setScale({0.5f, 0.5f});
   sprite.setPosition(position);
@@ -41,5 +42,5 @@ void Base::addSoldat(std::unique_ptr<Defense> soldat) {
 
 void Base::death() {
   std::cout << "Base destroyed!" << std::endl;
-  // Handle base destruction logic here, e.g., removing from the game
+  carte->End(false);
 }

@@ -6,7 +6,7 @@
 	</champ>
 	<champ x="150" y="150" taille="3" vie="150">
 		<defense type="canon" x="50" y="50"/>
-		<defense type="tour" x="-100" y="-20"/>
+		<defense type="tour" x="-80" y="-20"/>
 	</champ>
 	<foret x="200" y="600" taille="30"/>
 </map>

@@ -5,7 +5,7 @@
 
 class CanonABle : public Defense {
  private:
-  static const int degats = -8;
+  static const int degats = -12;
   static const int rayonDegat = 40;
   sf::Texture texture;
   sf::Sprite sprite;

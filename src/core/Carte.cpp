@@ -1,12 +1,14 @@
 #include "Carte.h"
 #include <iostream>
+#include "Game.h"
 
 
 
 
-void Carte::makeCarte(const pugi::xml_node& node) {
+void Carte::makeCarte(const pugi::xml_node& node,Game* gameManager_) {
+  gameManager = gameManager_;
   for (pugi::xml_node base1 : node.children("base")) {
-    auto base_ = std::make_unique<Base>(base1);
+    auto base_ = std::make_unique<Base>(base1,this);
     base = base_.get();
     lieux.push_back(std::move(base_));
   }
@@ -22,11 +24,20 @@ void Carte::makeCarte(const pugi::xml_node& node) {
     lieux.push_back(std::move(foret1));
   }
 }
-
-void Carte::update(sf::Time elapsedTime, TroupeManager& TM) {
+/**/ void Carte::update(sf::Time elapsedTime, TroupeManager& TM) {
+  bool win = true;
   for (auto& lieu : lieux) {
     lieu->update(elapsedTime,  TM);
+    if (dynamic_cast<Champ*>(lieu.get()) && lieu->isAlive()) {
+      win = false;
+    }
   }
+
+  if (win) {
+    End(win);
+  std::cout << "Vous avez gagné !" << std::endl;
+  }
+  
 
   // On regarde si une des defenses est détruite pour l'enlever de la liste des lieux
   for (auto& lieu : lieux) {
@@ -51,3 +62,5 @@ void Carte::draw(sf::RenderWindow& window) const {
     lieu->draw(window);
   }
 }
+
+void Carte::End(bool win) { gameManager->setEnd(win); };

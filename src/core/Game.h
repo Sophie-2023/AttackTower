@@ -7,6 +7,7 @@
 #include "TroupeManager.h"
 #include "TroupeFactory.h"
 #include "Carte.h"
+#include "End.h"
 
 class Game {
  public:
@@ -15,11 +16,16 @@ class Game {
   Game &operator=(const Game &) = delete;
   void run();
 
+  void setEnd(bool win);
+
  private:
   void processEvents();
   void update(sf::Time elapsedTime);
   void render();
   void updateTimer(sf::Time elapsedTime);
+
+  bool end=false;
+  End menuEnd;
 
 
   void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);

@@ -6,12 +6,12 @@
 
 Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
       taille(node.attribute("taille").as_int()),
-      texture("res/champBle.jpg"),
+      texture("res/champBle.png"),
       sprite(texture),
       base(b){
 
   sprite.setOrigin(sprite.getLocalBounds().getCenter());
-  sprite.setScale({0.05f * taille, 0.05f * taille});
+  sprite.setScale({0.12f * taille, 0.12f * taille});
   sprite.setPosition(position);
   barrePv.setFillColor(sf::Color::Yellow);
   barrePv.setSize({25.f*taille, 5.f});
@@ -128,6 +128,8 @@ void Champ::addSoldat() {
 bool Champ::getUnderAttack() { return underAttack; }
 
 void Champ::death() {
+  texture= sf::Texture("res/champDetruit.png");
+  sprite.setTexture(texture);
   for (int i =0;i<taille;i++) {
     std::unique_ptr<Troupe> newTroupe =
         troupeManager->creerTroupe("chasseur", this);

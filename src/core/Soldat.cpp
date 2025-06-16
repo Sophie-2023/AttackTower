@@ -5,7 +5,7 @@
 
 Soldat::Soldat(sf::Vector2f pos, Base* base_, Champ* p)
     : 
-  Defense(300, 3, pos,20), 
+  Defense(300, 3, pos,50), 
   vitesse(15),
   texture("res/fermier.png"),
   sprite(texture),
@@ -42,6 +42,7 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
         (base->getPosition() - position).normalized() * vitesse;
     position += direction * elapsedTime.asSeconds();
     sprite.move(direction * elapsedTime.asSeconds());
+    flip(direction);
     barrePv.setPosition({position.x, position.y - 45.f});
 
     //si on sort du champ
@@ -70,6 +71,7 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
               (cible->getPosition() - position).normalized() * vitesse;
           position += direction * elapsedTime.asSeconds();
           sprite.move(direction * elapsedTime.asSeconds());
+          flip(direction);
           barrePv.setPosition({position.x, position.y - 45.f});
         }
         attaqueBase = false;
@@ -93,6 +95,7 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
             (base->getPosition() - position).normalized() * vitesse;
         position += direction * elapsedTime.asSeconds();
         sprite.move(direction * elapsedTime.asSeconds());
+        flip(direction);
         barrePv.setPosition({position.x, position.y - 45.f});
       }
   }
@@ -100,4 +103,11 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
 
 void Soldat::attaquerBase() {
   attaqueBase = true;
+}
+void Soldat::flip(sf::Vector2f direction) {
+  if (direction.x < 0) {
+    sprite.setScale({-std::abs(sprite.getScale().x), sprite.getScale().y});
+  } else if (direction.x > 0) {
+    sprite.setScale({std::abs(sprite.getScale().x), sprite.getScale().y});
+  }
 }

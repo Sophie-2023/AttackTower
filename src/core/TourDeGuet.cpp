@@ -2,7 +2,7 @@
 #include <iostream>
 
 TourDeGuet::TourDeGuet(float x, float y)
-    : Defense(200, 5, sf::Vector2f(x, y),50),
+    : Defense(200, 5, sf::Vector2f(x, y),100),
       texture("res/tourDeGuet.png"),
       sprite(texture),
       bulletTexture("res/bullet.png"),
