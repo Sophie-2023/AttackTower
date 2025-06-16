@@ -11,10 +11,10 @@
 
 class Game {
  public:
-  Game();
+  Game(sf::RenderWindow& window);
   Game(const Game &) = delete;
   Game &operator=(const Game &) = delete;
-  void run();
+  int run();
 
   void setEnd(bool win);
 
@@ -25,7 +25,7 @@ class Game {
   void updateTimer(sf::Time elapsedTime);
 
   bool end=false;
-  End menuEnd;
+  bool win;
 
 
   void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
@@ -33,7 +33,7 @@ class Game {
   static const float PlayerSpeed;
   static const sf::Time TimePerFrame;
 
-  sf::RenderWindow mWindow{sf::VideoMode({1000, 700}), "Attack Tower Game"};
+  sf::RenderWindow& mWindow;
   sf::Texture mTexture;
   
   Carte carte;
@@ -41,7 +41,7 @@ class Game {
 
   // affichage du timer
   sf::Time timer{sf::Time::Zero};
-  int secondes{400};
+  int secondes{360};
   sf::Font font;
   sf::Text affichageTimer;
 

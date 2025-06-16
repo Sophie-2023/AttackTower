@@ -37,7 +37,7 @@ std::unique_ptr<sf::RectangleShape> Lieu::createChemin(Lieu* destination) const 
   }
 void Lieu::recevoirDegats(int amount) {
   pv += amount;
-  if (pv <= 0) {
+  if (pv <= 0 &&    alive) {
     pv = 0;
     alive = false;
     death();

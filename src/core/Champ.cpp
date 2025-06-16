@@ -131,8 +131,7 @@ void Champ::death() {
   texture= sf::Texture("res/champDetruit.png");
   sprite.setTexture(texture);
   for (int i =0;i<taille;i++) {
-    std::unique_ptr<Troupe> newTroupe =
-        troupeManager->creerTroupe("chasseur", this);
+    std::unique_ptr<Troupe> newTroupe = troupeManager->creerTroupe("chasseur", this);
     newTroupe->setIsInBase(false);
     troupeManager->ajouterTroupe(std::move(newTroupe));
   }
