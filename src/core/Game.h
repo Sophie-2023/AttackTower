@@ -7,7 +7,6 @@
 #include "TroupeManager.h"
 #include "TroupeFactory.h"
 #include "Carte.h"
-#include "End.h"
 
 class Game {
  public:

@@ -1,7 +1,13 @@
 #include "Game.h"
+#include "Menu.h"
+#include "End.h"
 
 int main() {
   sf::RenderWindow mWindow{sf::VideoMode({1280, 720}), "Attack Tower Game"};
+  Menu menu(mWindow);
+  if (!menu.run()) {
+    return (0);
+  }  // true si victoire, false si défaite, -1 si fenêtre fermée
   while (mWindow.isOpen()) {
     Game game(mWindow);
     int ret = game.run();  // 1 si victoire ,0 si défaite, -1 si fenêtre fermé

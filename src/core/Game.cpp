@@ -62,7 +62,7 @@ void Game::processEvents() {
       const auto& troupes = troupeManager.getTroupes();
 
       for (auto troupePtr = troupes.rbegin(); troupePtr != troupes.rend();
-            ++troupePtr) {
+           ++troupePtr) {
         if ((*troupePtr)->getBounds().contains(souris)) {
           if (troupeSelectionnee) troupeSelectionnee->setSelected(false);
           troupeSelectionnee = troupePtr->get();
@@ -92,8 +92,7 @@ void Game::processEvents() {
           }
         }
       }
-    }
-    else if (event->is<sf::Event::Closed>()) {
+    } else if (event->is<sf::Event::Closed>()) {
       mWindow.close();
     }
   }
