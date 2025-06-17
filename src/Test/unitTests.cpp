@@ -3,9 +3,10 @@
 #include "TourdeGuet.h"
 #include "Champ.h"
 #include "Lieu.h"
-TEST(TestGame, FirstTest) {
-  EXPECT_EQ(1, 1);
-}
+#include "Chasseur.h"
+#include "Carte.h"
+#include "Game.h"
+
 
 TEST(Defense, TakeDamage) { 
   TourDeGuet defense(20,20);
@@ -42,3 +43,26 @@ TEST(Champ, addSoldat) {
 
 
 
+TEST(ChasseurTest, RecevoirDegatsReduitPv) {
+
+
+  sf::RenderWindow mWindow{sf::VideoMode({1280, 720}), "Attack Tower Game"};
+  Game game(mWindow);
+  Carte carte;
+  pugi::xml_document doc;
+  if (auto result = doc.load_file("res/map.xml"); !result) {
+    std::cerr << "Could not open file visage.xml because "
+              << result.description() << std::endl;
+  }
+  pugi::xml_node nodeSource = doc.child("map");
+  carte.makeCarte(nodeSource, &game);
+
+  Chasseur chasseur(carte.getBase());
+
+  int pvInitial = chasseur.getPv();
+  int degats = 10;
+
+  chasseur.recevoirDegats(-degats);
+
+  EXPECT_EQ(chasseur.getPv(), pvInitial - degats);
+}
