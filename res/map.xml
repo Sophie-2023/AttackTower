@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <map>
-	<base x="500" y="350" vie="200" />
-	<champ x="900" y="300" taille="2" vie="100">
+	<base x="640" y="300" vie="200" />
+	<champ x="640" y="600" taille="2" vie="100">
 		<defense type="tour" x="50" y="50"/>
 	</champ>
 	<champ x="150" y="150" taille="3" vie="150">
 		<defense type="canon" x="50" y="50"/>
 		<defense type="tour" x="-80" y="-20"/>
 	</champ>
-	<foret x="200" y="600" taille="30"/>
+	<champ x="1100" y="560" taille="4" vie="200">
+		<defense type="canon" x="0" y="0"/>
+		<defense type="tour" x="-100" y="100"/>
+		<defense type="tour" x="100" y="-80"/>
+	</champ>
+	<foret x="300" y="580" taille="40"/>
+	<foret x="1000" y="200" taille="30"/>
 </map>

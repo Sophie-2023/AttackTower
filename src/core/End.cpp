@@ -5,7 +5,7 @@ const sf::Time End::TimePerFrame = sf::seconds(1.f / 60.f);
 
 End::End(sf::RenderWindow& window)
     : mWindow(window) ,font("res/Bobatime.ttf"), text(font), buttonText(font) {
-  background.setSize(sf::Vector2f(1000, 700));
+  background.setSize(sf::Vector2f(1280, 720));
   text.setPosition(sf::Vector2f(450, 400));
   text.setCharacterSize(100);
   button.setPosition(sf::Vector2f(450, 600));

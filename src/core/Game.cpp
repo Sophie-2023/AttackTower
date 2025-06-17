@@ -18,7 +18,7 @@ Game::Game(sf::RenderWindow& window) : mWindow(window),font("res/Bobatime.ttf"),
   }
   pugi::xml_node nodeSource = doc.child("map");
   carte.makeCarte(nodeSource,this);
-  affichageTimer.setPosition(sf::Vector2f(940, 10));
+  affichageTimer.setPosition(sf::Vector2f(1200, 10));
   affichageTimer.setString(std::to_string(secondes));
   affichageTimer.setCharacterSize(35);
   affichageTimer.setFillColor(sf::Color::White);
