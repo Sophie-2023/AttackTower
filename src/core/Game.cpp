@@ -55,10 +55,7 @@ int Game::run() {
 void Game::processEvents() {
   while (const std::optional event = mWindow.pollEvent()) {
     if (event->is<sf::Event::MouseButtonPressed>()) {
-      sf::Vector2f souris =
-          mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-      // std::cout << "Souris : (" << souris.x << ", " << souris.y << ")" <<
-      // std::endl;
+      sf::Vector2f souris = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
       const auto& troupes = troupeManager.getTroupes();
 
       for (auto troupePtr = troupes.rbegin(); troupePtr != troupes.rend();
@@ -72,17 +69,14 @@ void Game::processEvents() {
       }
 
       if (troupeSelectionnee) {
-        for (auto& lieu : carte.getLieux()) {
+        for (auto const& lieu : carte.getLieux()) {
           if (lieu->getBounds().contains(souris)) {
-            auto* base = dynamic_cast<Base*>(lieu.get());
+            auto const* base = dynamic_cast<Base*>(lieu.get());
             if (base || troupeSelectionnee
                             ->getIsInBase()) {  // Si on clique sur une base ou
                                                 // si la troupe est à la base
 
-              std::unique_ptr<EtatEnRoute> etatEnRoute =
-                  std::make_unique<EtatEnRoute>(lieu.get(), &troupeManager,
-                                                &mWindow);
-              // etatEnRoute->setDestination(lieu.get());
+              auto etatEnRoute = std::make_unique<EtatEnRoute>(lieu.get(), &troupeManager, &mWindow);
               troupeSelectionnee->changerEtat(std::move(etatEnRoute));
               troupeSelectionnee->setIsInBase(false);
               troupeSelectionnee->setSelected(false);
@@ -113,10 +107,6 @@ void Game::render() {
   mWindow.display();
 }
 
-void Game::handlePlayerInput(const sf::Keyboard::Key key,
-                             const bool isPressed) {
-
-}
 
 void Game::updateTimer(sf::Time elapsedTime) {
   timer += elapsedTime;

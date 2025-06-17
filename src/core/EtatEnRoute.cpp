@@ -15,7 +15,6 @@ sf::Vector2f normaliser(const sf::Vector2f& v) {
 
 
 void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
-  //std::cout << "Je suis en route" << std::endl;
   if (!destination) {
     std::cout << "Destination non définie pour la troupe." << std::endl;
     return;
@@ -40,9 +39,9 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
       troupe.setLieuActuel(destination);
     }
 
-    if (auto* champ = dynamic_cast<Champ*>(destination)) {
+    if (auto const* champ = dynamic_cast<Champ*>(destination)) {
       troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));
-    } else if (auto* foret = dynamic_cast<Foret*>(destination)) {
+    } else if (auto const* foret = dynamic_cast<Foret*>(destination)) {
       troupe.changerEtat(std::make_unique<EtatExploitation>(destination, troupeManager, window));
     } else {
       troupe.changerEtat(std::make_unique<EtatCombat>(troupeManager, window));

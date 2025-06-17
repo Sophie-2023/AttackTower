@@ -5,7 +5,8 @@
 #include "Lieu.h"
 #include "Chasseur.h"
 #include "Carte.h"
-#include "Game.h"
+
+
 
 
 TEST(Defense, TakeDamage) { 
@@ -46,18 +47,15 @@ TEST(Champ, addSoldat) {
 TEST(ChasseurTest, RecevoirDegatsReduitPv) {
 
 
-  sf::RenderWindow mWindow{sf::VideoMode({1280, 720}), "Attack Tower Game"};
-  Game game(mWindow);
-  Carte carte;
+  std::string sg = R"(<?xml version = "1.0"?>
+                       <champ x="40" y="40" taille="2" vie="100"/>)";
+                    
   pugi::xml_document doc;
-  if (auto result = doc.load_file("res/map.xml"); !result) {
-    std::cerr << "Could not open file visage.xml because "
-              << result.description() << std::endl;
-  }
-  pugi::xml_node nodeSource = doc.child("map");
-  carte.makeCarte(nodeSource, &game);
+  doc.load_string(sg.c_str());
+  pugi::xml_node node = doc.child("champ");
+  Champ champ(node, nullptr);
 
-  Chasseur chasseur(carte.getBase());
+  Chasseur chasseur(&champ);
 
   int pvInitial = chasseur.getPv();
   int degats = 10;
@@ -65,4 +63,54 @@ TEST(ChasseurTest, RecevoirDegatsReduitPv) {
   chasseur.recevoirDegats(-degats);
 
   EXPECT_EQ(chasseur.getPv(), pvInitial - degats);
+}
+
+TEST(ChasseurTest, AttaqueToucheEtInfligeDegats) {
+
+  std::string sg = R"(<?xml version = "1.0"?>
+                       <champ x="40" y="40" taille="2" vie="100">
+                        <defense type="tour" x="50" y="50"/>
+                        </champ>)";
+
+  pugi::xml_document doc;
+  doc.load_string(sg.c_str());
+  pugi::xml_node node = doc.child("champ");
+  Champ champ(node, nullptr);
+
+  TourDeGuet defense(50, 50);
+
+  Chasseur chasseur(&champ);
+
+  int pvAvant = defense.getPv();
+  chasseur.setPosition({49.f, 49.f});
+  chasseur.attaquer(&defense);
+
+  for (int i = 0; i < 100; ++i) {
+    chasseur.updateAttaque(sf::seconds(0.1f));
+  }
+
+  EXPECT_EQ(defense.getPv(), pvAvant - chasseur.getDegats());
+}
+
+TEST(ChasseurTest, PeutAttaquerUnChamp) {
+
+  std::string sg = R"(<?xml version = "1.0"?>
+                       <champ x="40" y="40" taille="2" vie="100"/>)";
+
+  pugi::xml_document doc;
+  doc.load_string(sg.c_str());
+  pugi::xml_node node = doc.child("champ");
+  Champ champ(node, nullptr);
+
+  Chasseur chasseur(&champ);
+  chasseur.setPosition({39.f, 39.f});
+
+  int pvAvant = champ.getPv();
+
+  chasseur.attaquer(nullptr);  // pas de cible -> attaque le lieu 
+  for (int i = 0; i < 100; ++i) {
+    chasseur.updateAttaque(sf::seconds(0.1f));
+  }
+
+  EXPECT_EQ(champ.getPv(), pvAvant - chasseur.getDegats());
 }

@@ -26,9 +26,6 @@ class Game {
   bool end=false;
   bool win;
 
-
-  void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-
   static const float PlayerSpeed;
   static const sf::Time TimePerFrame;
 
@@ -47,10 +44,6 @@ class Game {
 
   Troupe *troupeSelectionnee = nullptr;
 
-  bool mIsMovingUp{false};
-  bool mIsMovingDown{false};
-  bool mIsMovingRight{false};
-  bool mIsMovingLeft{false};
 };
 
 #endif  // BOOK_GAME_HPP

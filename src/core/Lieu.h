@@ -31,6 +31,7 @@ class Lieu {
   std::vector<std::unique_ptr<Defense>>& getDefenses() { return defenses; }
   std::unique_ptr<sf::RectangleShape> createChemin(Lieu* destination) const;
   void recevoirDegats(int amount);
+  int getPv() const { return pv; }
   bool isAlive() const { return alive; }
   virtual void death() = 0;
 
