@@ -33,6 +33,7 @@ void CanonABle::attaquer(Troupe* c) {
 
 void CanonABle::draw(sf::RenderWindow& window) const {
   // Dessine la tour de guet
+  if (pv <= 0) return;
   window.draw(sprite);
   window.draw(barrePv);
   if (attaqueEnCours) {
@@ -51,11 +52,6 @@ void CanonABle::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
     }
   }
   if (attaqueEnCours) {
-    /* sf::Vector2f direction =
-        (bulletDestination - bullet.getPosition()).normalized() *
-        bulletSpeed;
-    bullet.move(direction * elapsedTime.asSeconds());
-    */
 
 
     progress += speed * elapsedTime.asSeconds();
@@ -71,7 +67,7 @@ void CanonABle::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
     if ((bullet.getPosition() - bulletDestination).length() < 3) {
       effetExplosion.setPosition(bulletDestination);
 
-      for (auto& cible : TM.getTroupes()) {
+      for (auto const& cible : TM.getTroupes()) {
         if ((cible->getPosition()-bulletDestination).length() < rayonDegat) {
           cible->recevoirDegats(degats);
         }

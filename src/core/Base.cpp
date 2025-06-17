@@ -16,7 +16,7 @@ Base::Base(const pugi::xml_node& node,Carte* carte_)
 }
 
 void Base::update(sf::Time elapsedTime, TroupeManager& TM) {
-  for (auto& soldat : defenses) {
+  for (auto const& soldat : defenses) {
     soldat->update(elapsedTime, TM);
   }
 }
@@ -41,6 +41,5 @@ void Base::addSoldat(std::unique_ptr<Defense> soldat) {
 }
 
 void Base::death() {
-  std::cout << "Base destroyed!" << std::endl;
   carte->End(false);
 }

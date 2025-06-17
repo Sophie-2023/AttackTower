@@ -28,7 +28,9 @@ void Troupe::recevoirDegats(int amount) {
   float proportion = static_cast<float>(pv) / static_cast<float>(pvMax);
   proportion = std::clamp(proportion, 0.f, 1.f);  // éviter valeur négative
 
-  barrePv.setSize({50.f * proportion, 5.f});
+  if (barrePv.getSize().x > 0 && barrePv.getSize().y > 0) {
+    barrePv.setSize({50.f * proportion, 5.f});
+  }
 }
 
 

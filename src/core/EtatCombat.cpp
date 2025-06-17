@@ -12,6 +12,7 @@ EtatCombat::EtatCombat(TroupeManager* tm, sf::RenderWindow* win)
 
 void EtatCombat::agir(Troupe& troupe, sf::Time elapsedTime) {
 
+  // On choisit la cible de l'attaque
   if (!cibleDefense || cibleDefense->getPv() <= 0) {
 
     auto* lieu = troupe.getLieuActuel();
@@ -32,6 +33,7 @@ void EtatCombat::agir(Troupe& troupe, sf::Time elapsedTime) {
 
   } 
   
+  // Si on peut attaquer, on se déplace et on déclenche l'attaque
   if (cibleDefense || troupe.getAttaqueChamp()) {
     sf::Vector2f currentPos = troupe.getPosition();
     sf::Vector2f delta = ciblePosition - currentPos;

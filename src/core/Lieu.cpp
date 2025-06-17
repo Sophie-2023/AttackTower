@@ -46,7 +46,8 @@ void Lieu::recevoirDegats(int amount) {
 
   float proportion = static_cast<float>(pv) / static_cast<float>(pvMax);
   proportion = std::clamp(proportion, 0.f, 1.f);  // éviter valeur négative
-  std::cout << "Points de vie: " << pv  << std::endl;
-  barrePv.setSize({prop.x * proportion, prop.y});
+  if (barrePv.getSize().x > 0 && barrePv.getSize().y > 0) {
+    barrePv.setSize({prop.x * proportion, prop.y});
+  }
 
 }

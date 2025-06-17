@@ -23,9 +23,9 @@ void EtatEnRoute::agir(Troupe& troupe, sf::Time elapsedTime) {
   sf::Vector2f currentPos = troupe.getPosition();
   sf::Vector2f targetPos;
 
-  if (phase == 1) targetPos = troupe.getLieuActuel()->getPosition();
-  if (phase == 2) targetPos = destination->getPosition();
-  if (phase == 3) targetPos = destination->getPosition() + troupe.getDecalagePosition();
+  if (phase == 1) targetPos = troupe.getLieuActuel()->getPosition(); // 1ère phase : se déplacer vers le centre du lieu actuel
+  if (phase == 2) targetPos = destination->getPosition(); // 2ème phase : se déplacer vers la destination
+  if (phase == 3) targetPos = destination->getPosition() + troupe.getDecalagePosition(); // 3ème phase : se déplacer vers la destination avec le décalage
 
   sf::Vector2f delta = targetPos - currentPos;
   float distance = std::sqrt(delta.x * delta.x + delta.y * delta.y);

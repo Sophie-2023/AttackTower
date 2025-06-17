@@ -8,7 +8,7 @@
    barrePv.setSize({50.f, 5.f});
    barrePv.setFillColor(sf::Color::Magenta);
    barrePv.setOrigin(barrePv.getLocalBounds().getCenter());
- } // Ne pas oublier de changer l'initialisation du pv des défenses
+ }
 
  void Defense::recevoirDegats(int amount) {
    pv += amount;
@@ -17,7 +17,9 @@
 
    float proportion = static_cast<float>(pv) / static_cast<float>(pvMax);
    proportion = std::clamp(proportion, 0.f, 1.f);  // éviter valeur négative
-   barrePv.setSize({50.f * proportion, 5.f});
+   if (barrePv.getSize().x > 0 && barrePv.getSize().y > 0) {
+     barrePv.setSize({50.f * proportion, 5.f});
+   }
  }
 
  void Defense::update(sf::Time elapsedTime, TroupeManager& TM) {
@@ -27,7 +29,7 @@
    if (timer > cadence) {
      float distMin = rayon;
      bool found = false;
-     for (auto& troupe : TM.getTroupes()) {
+     for (auto const& troupe : TM.getTroupes()) {
        float dist = (troupe->getPosition() - position).length();
 
         if (dist <= distMin) {
@@ -49,4 +51,5 @@
    }
    
  }
- bool Defense::getAttaqueEnCours() { return (underAttack); }
+ 
+ bool Defense::getAttaqueEnCours() { return underAttack; }

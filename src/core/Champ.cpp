@@ -19,7 +19,7 @@ Champ::Champ(const pugi::xml_node& node,Base* b) : Lieu(node) ,
   barrePv.setOrigin(barrePv.getLocalBounds().getCenter());
   barrePv.setPosition(sf::Vector2f(position.x, position.y - sprite.getGlobalBounds().size.y / 2 - 20));
 
-  for (auto& defense : node.children("defense")) {
+  for (auto const& defense : node.children("defense")) {
     std::string type = defense.attribute("type").as_string();
     int xDef = defense.attribute("x").as_int();
     int yDef = defense.attribute("y").as_int();
@@ -50,7 +50,7 @@ sf::FloatRect Champ::getBounds() const { return sprite.getGlobalBounds(); }
 void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
   troupeManager = &TM;
   underAttack = false;
-    for (auto& def : defenses) {
+    for (auto const& def : defenses) {
       if (def) {
         if (def->getAttaqueEnCours()) {
           underAttack = true;
@@ -59,7 +59,7 @@ void Champ::update(sf::Time elapsedTime, TroupeManager& TM) {
 
       }
     }
-    for (auto& soldat : soldatsEnRoute) {
+    for (auto const& soldat : soldatsEnRoute) {
       if (soldat) {
         soldat->update(elapsedTime, TM);
       }

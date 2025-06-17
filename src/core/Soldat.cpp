@@ -21,6 +21,7 @@ Soldat::Soldat(sf::Vector2f pos, Base* base_, Champ* p)
 
 void Soldat::draw(sf::RenderWindow& window) const 
 { 
+    if (pv <= 0) return;
     window.draw(sprite); 
     window.draw(barrePv);
 }
@@ -64,7 +65,6 @@ void Soldat::updateAttaque(sf::Time elapsedTime, TroupeManager& TM) {
         (proprio != nullptr && (cible->getPosition() - proprio->getPosition()).length() < proprio->getBounds().size.x / 2 + 50)) {
         if ((cible->getPosition() - position).length() < 5) {
           cible->recevoirDegats(degats);
-          std::cout << "attaque du fermier" << std::endl;
           attaqueEnCours = false;
         } else {
           sf::Vector2f direction =

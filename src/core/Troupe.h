@@ -26,7 +26,6 @@ protected:
     bool selected; // Est ce que la troupe est sélectionnée par le joueur ?
     bool isInBase;
     sf::Vector2f decalagePosition;  // Décalage de la position pour le sprite
-                                    // (quand il est dans la base, par exemple)
     Lieu* lieuActuel = nullptr;
 
 public:

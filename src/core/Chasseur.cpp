@@ -8,7 +8,7 @@
 
 
 Chasseur::Chasseur(Lieu* lieu) 
-	: Troupe(50, 50, 50.f, 10, 70.f, sf::seconds(2.f)),  // pv, pvMax, vitesse, degats, rayonDegats, rechargeCombat
+	: Troupe(60, 60, 50.f, 10, 70.f, sf::seconds(2.f)),  // pv, pvMax, vitesse, degats, rayonDegats, rechargeCombat
       texture("res/chasseur.png"),
       sprite(texture),
       bulletTexture("res/bullet.png"),
@@ -26,13 +26,14 @@ Chasseur::Chasseur(Lieu* lieu)
 }
 
 void Chasseur::draw(sf::RenderWindow& window) const { 
+  if (pv <= 0) return;
   window.draw(sprite);
   window.draw(barrePv);
   if (attaqueEnCours) {
     window.draw(bullet);
   }
 
-  if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
+  if (auto const* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
     exploitation->draw(window);
   }
 }
@@ -64,7 +65,7 @@ void Chasseur::attaquer(Defense* cible_) {
   cible = cible_;
   attaqueEnCours = true;
   bullet.setPosition(position);
-  bullet.setScale(sf::Vector2f(0.01f, 0.01f));  // Ajuste la taille de la balle
+  bullet.setScale(sf::Vector2f(0.01f, 0.01f));
   bullet.setOrigin(bullet.getLocalBounds().getCenter());
   bullet.setColor(sf::Color::Blue);
 
@@ -77,8 +78,7 @@ void Chasseur::attaquer(Defense* cible_) {
                                lieuActuel->getPosition().x - position.x));
   }
 
-  bullet.setRotation(
-      rotationAngle);  // Définit la rotation de la balle vers la cible
+  bullet.setRotation(rotationAngle);
 }
 
 void Chasseur::updateAttaque(sf::Time elapsedTime) {

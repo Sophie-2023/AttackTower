@@ -16,6 +16,8 @@ class Game {
   int run();
 
   void setEnd(bool win);
+  void setTroupeSelectionnee(Troupe *troupe) { troupeSelectionnee = troupe; }
+  Troupe *getTroupeSelectionnee() const { return troupeSelectionnee; }
 
  private:
   void processEvents();

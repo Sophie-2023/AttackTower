@@ -24,9 +24,10 @@ void Carte::makeCarte(const pugi::xml_node& node,Game* gameManager_) {
     lieux.push_back(std::move(foret1));
   }
 }
-/**/ void Carte::update(sf::Time elapsedTime, TroupeManager& TM) {
+
+void Carte::update(sf::Time elapsedTime, TroupeManager& TM) {
   bool win = true;
-  for (auto& lieu : lieux) {
+  for (auto const& lieu : lieux) {
     lieu->update(elapsedTime,  TM);
     if (dynamic_cast<Champ*>(lieu.get()) && lieu->isAlive()) {
       win = false;
@@ -40,7 +41,7 @@ void Carte::makeCarte(const pugi::xml_node& node,Game* gameManager_) {
   
 
   // On regarde si une des defenses est détruite pour l'enlever de la liste des lieux
-  for (auto& lieu : lieux) {
+  for (auto const& lieu : lieux) {
     for (auto it = lieu->getDefenses().begin(); it != lieu->getDefenses().end();) {
       if (*it && (*it)->getPv() <= 0) {
         std::cout << "Defense supprimée" << std::endl;

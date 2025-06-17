@@ -33,6 +33,7 @@ TourDeGuet::TourDeGuet(float x, float y)
 
 void TourDeGuet::draw(sf::RenderWindow& window) const {
     // Dessine la tour de guet
+  if (pv <= 0) return;
   sf::CircleShape std(
       400);  // Crée un cercle de rayon 50 pour représenter la zone d'attaque
   std.setPosition(sf::Vector2f(position.x - 200, position.y - 200));

@@ -7,7 +7,7 @@
 #include "EtatEnRoute.h"
 
 Loup::Loup(Lieu* lieu) 
-    : Troupe(100, 100, 100.0f, 10, 30.f, sf::seconds(2.f)),  // pv, pvMax, vitesse, degats, rayonDegats, rechargeCombat
+    : Troupe(40, 40, 100.0f, 10, 30.f, sf::seconds(2.f)),  // pv, pvMax, vitesse, degats, rayonDegats, rechargeCombat
       texture("res/loup0.png"),
       sprite(texture),
       effetDegatTexture("res/degat.png"),
@@ -37,13 +37,14 @@ Loup::Loup(Lieu* lieu)
 }
 
 void Loup::draw(sf::RenderWindow& window) const {
+  if (pv <= 0) return;
   if (attaqueEnCours && tempsEffet.asSeconds() >= 0.18f) {
     window.draw(effetDegat);
   }
   window.draw(sprite);
   window.draw(barrePv);
 
-  if (auto* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
+  if (auto const* exploitation = dynamic_cast<EtatExploitation*>(etat.get())) {
     exploitation->draw(window);
   }
 }
